@@ -1,0 +1,82 @@
+/* label color */
+/*.input-field label {*/
+/*color: #000;*/
+/*}*/
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #ff8a80;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #ff8a80;
+    box-shadow: 0 1px 0 0 #ff8a80;
+}
+
+/*/!* valid color *!/*/
+/*.input-field input[type=text].valid {*/
+/*border-bottom: 1px solid #000;*/
+/*box-shadow: 0 1px 0 0 #000;*/
+/*}*/
+/*/!* invalid color *!/*/
+/*.input-field input[type=text].invalid {*/
+/*border-bottom: 1px solid #000;*/
+/*box-shadow: 0 1px 0 0 #000;*/
+/*}*/
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #ff8a80;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: #ff8a80;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #ff8a80;
+    box-shadow: 0 1px 0 0 #ff8a80;
+}
+
+.switch label input[type=checkbox]:checked + .lever {
+    background-color: #ff8a80;
+}
+
+.switch label input[type=checkbox]:checked + .lever:after {
+    background-color: #ff5252;
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+    color: #ff8a80;
+}
+
+[type="radio"]:checked+label:after {
+    border: 2px solid #ff8a80;
+    background-color: #ff8a80;
+}
+
+.section {
+    /*padding-top: 1rem;*/
+    padding-bottom: 0.25rem;
+}
+
+.row {
+    margin-bottom: 2px;
+}
+
+/**
+
+THE SHOW STARTS HERE
+
+**/
+
+#contents {
+    display: none;
+}
+
+#map {
+    height: 300px;
+}
+
+.leaflet-control-container .leaflet-routing-container {
+    display: none;
+}

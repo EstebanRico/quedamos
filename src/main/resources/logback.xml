@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <if condition='isDefined("spring.profiles.active")'>
+        <then>
+            <include resource="logback-${spring.profiles.active}.xml" />
+        </then>
+        <else>
+            <include resource="logback-dev.xml" />
+        </else>
+    </if>
+</configuration>
+
