@@ -9,34 +9,48 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
-    <link rel="stylesheet" href="http://www.liedman.net/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
+    <link rel="stylesheet" href="http://www.liedman.net/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet'/>
 
     <link href="<@spring.url "/static/css/global.css" />" rel="stylesheet">
 
 </head>
 <body>
 
+<#include "navbar.ftl" />
+
+
 <div class="row">
-    <form class="col s12" method="post" action="<@spring.url "/dashboard" />">
+    <form class="col s12" method="post" action="<@spring.url "/MenuMemberSearch" />">
         <div class="row">
-            <div class="input-field col s6">
-                <input id="mail" type="email" class="validate" name="mail" value="a@a.a">
-                <label for="mail">Mail</label>
+            <div class="input-field col s4">
+                <input type="text" name="login" value="">
+                <label>Login</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
-                <input id="pass" type="password" class="validate" name="pass" value="z">
-                <label for="pass">Mot de passe</label>
+            <div class="input-field col s4">
+                <select name="gender">
+                    <option value="A">Any</option>
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                </select>
+                <label>Gender</label>
             </div>
         </div>
-        <button type="submit" id="identifyButton" class="waves-effect waves-light btn red">
-            S'identifier
+        <div class="row">
+            <div class="input-field col s4">
+                <input type="text" name="location" value="">
+                <label>Location</label>
+            </div>
+        </div>
+        <button type="submit" id="MenuMemberSearchButton" class="waves-effect waves-light btn red">
+            Search
         </button>
     </form>
 </div>
+
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -52,8 +66,10 @@
 <script type="text/javascript">
     window.stargui = window.stargui || {};
     window.stargui.BASE_URL = "<@spring.url "" />";
-
     $("#contents").show();
+    $(document).ready(function() {
+        $('select').material_select();
+    });
 </script>
 
 <script src="<@spring.url "/static/js/loginEvents.js" />"></script>

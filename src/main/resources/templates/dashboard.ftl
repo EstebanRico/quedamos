@@ -18,25 +18,7 @@
 </head>
 <body>
 
-<div class="row">
-    <form class="col s12" method="post" action="<@spring.url "/dashboard" />">
-        <div class="row">
-            <div class="input-field col s6">
-                <input id="mail" type="email" class="validate" name="mail" value="a@a.a">
-                <label for="mail">Mail</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input id="pass" type="password" class="validate" name="pass" value="z">
-                <label for="pass">Mot de passe</label>
-            </div>
-        </div>
-        <button type="submit" id="identifyButton" class="waves-effect waves-light btn red">
-            S'identifier
-        </button>
-    </form>
-</div>
+<#include "navbar.ftl" />
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -52,7 +34,6 @@
 <script type="text/javascript">
     window.stargui = window.stargui || {};
     window.stargui.BASE_URL = "<@spring.url "" />";
-
     $("#contents").show();
 </script>
 

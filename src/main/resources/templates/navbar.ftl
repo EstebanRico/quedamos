@@ -1,17 +1,22 @@
-<nav class="red" role="navigation">
-    <div class="nav-wrapper container">
-        <a id="logo-container" href="<@spring.url "" />" class="brand-logo center">
-            <i class="material-icons left">local_taxi</i>Star GUI
-        </a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li><a class="dropdown-button" href="#!" data-activates="dropdownMainMenu"><i class="material-icons right">view_module</i></a>
-            </li>
-        </ul>
-        <!-- Dropdown Structure -->
-        <ul id="dropdownMainMenu" class="dropdown-content">
-            <li><a href="#!">one</a></li>
-        <#--<li class="divider"></li>-->
-            <li><a class="modal-trigger" href="#modalLogs">Logs</a></li>
+<ul id="sorties" class="dropdown-content">
+    <li><a href="#!">Recherche</a></li>
+    <li><a href="#!">two</a></li>
+<#--<li class="divider"></li>-->
+    <li><a href="#!">three</a></li>
+</ul>
+
+<ul id="membres" class="dropdown-content">
+    <li><a href="MenuMemberSearch">Recherche</a></li>
+    <li><a href="#!">two</a></li>
+    <li><a href="#!">three</a></li>
+</ul>
+
+<nav>
+    <div class="nav-wrapper">
+        <ul class="left hide-on-med-and-down">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="membres">Les Membres<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="sorties">Les Sorties<i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>
     </div>
 </nav>

@@ -17,26 +17,43 @@
 
 </head>
 <body>
+<#include "navbarBack.ftl" />
 
-<div class="row">
-    <form class="col s12" method="post" action="<@spring.url "/dashboard" />">
-        <div class="row">
-            <div class="input-field col s6">
-                <input id="mail" type="email" class="validate" name="mail" value="a@a.a">
-                <label for="mail">Mail</label>
-            </div>
+<div class="container">
+    <div class="section">
+    <#include "midConnect.ftl" />
+    </div>
+    <div id="contents">
+        <div class="divider"></div>
+        <div class="section">
+        <#include "map.ftl" />
         </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input id="pass" type="password" class="validate" name="pass" value="z">
-                <label for="pass">Mot de passe</label>
+        <div class="divider"></div>
+        <div class="section">
+
+            <div class="row">
+                <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Contenu du message MQ:</label>
+                    </div>
+                    <a id="parseMQbutton" class="waves-effect waves-light btn red">
+                        <i class="material-icons left">format_line_spacing</i>Analyser
+                    </a>
+                    <a id="sendMQbutton" class="waves-effect waves-light btn red">
+                        <i class="material-icons left">format_line_spacing</i>Envoyer
+                    </a>
+                </div>
+                </form>
             </div>
+
+        <#include "modalLogs.ftl" />
         </div>
-        <button type="submit" id="identifyButton" class="waves-effect waves-light btn red">
-            S'identifier
-        </button>
-    </form>
+    </div>
 </div>
+
+<#include "footer.ftl" />
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

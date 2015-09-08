@@ -27,8 +27,8 @@ public class StarGuiWebController {
 
     @RequestMapping(method = RequestMethod.GET, value = BASE_URL + "/")
     public String index(Map<String, Object> model) {
-        LOGGER.debug("[IN] index (web)");
-        LOGGER.debug("[OUT] index (web)");
+        //LOGGER.debug("[IN] index (web)");
+        //LOGGER.debug("[OUT] index (web)");
         return "index";
     }
 }

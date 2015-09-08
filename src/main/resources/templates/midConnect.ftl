@@ -5,7 +5,7 @@
             <i class="material-icons prefix">perm_identity</i>
             <input id="midInput" type="number" size="7" min="1" max="1048575" required
                    class="validate">
-            <label for="midInput" data-error="requis, max 1048575.">MID du Tax</label>
+            <label for="midInput" data-error="requis, max 1048575.">MID du Taxi</label>
         </div>
         <div class="input-field col">
             <div class="switch">

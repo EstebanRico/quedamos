@@ -72,6 +72,24 @@
         return false;
     };
 
+    const onIdentifyBtnClick = function () {
+        console.log("onIdentifyBtnClick");
+        var messageMQ = $("#textarea1").val();
+        const mid = $("#midInput").val();
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "/channels/" + mid + "/send",
+            contentType: "text/plain; charset=UTF-8",
+            data: messageMQ
+        }).done(function (data) {
+            console.log("send ok !");
+        }).fail(function (data) {
+            console.log("FAIL");
+            console.log(data);
+        });
+        return false;
+    };
+
     /**
      * utility (logs)
      */
@@ -118,7 +136,7 @@
 
     // bindings
     $("#connectionCheckBox").bind("change", onConnectionLeverChange);
-    $("#sendMQbutton").bind("click", onSendBtnClick);
+    $("#identifyButton").bind("click", onIdentifyBtnClick);
     $('.modal-trigger').leanModal();
     $(".dropdown-button").dropdown();
     $('select').material_select();
