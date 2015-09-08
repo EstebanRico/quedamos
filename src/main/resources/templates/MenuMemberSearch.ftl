@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
     <link rel="stylesheet" href="http://www.liedman.net/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet'/>
+<#--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">-->
 
     <link href="<@spring.url "/static/css/global.css" />" rel="stylesheet">
 
@@ -19,30 +20,34 @@
 <body>
 
 <#include "navbar.ftl" />
+<#if user??>
 
+${user.mail!}
+
+<#else>
 
 <div class="row">
-    <form class="col s12" method="post" action="<@spring.url "/MenuMemberSearch" />">
+    <form class="col s6 offset-s3" method="post" action="<@spring.url "/MenuMemberSearch" />">
         <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col s12">
                 <input type="text" name="login" value="">
-                <label>Login</label>
+                <label><i class="material-icons left">contacts</i>Login</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col s12">
                 <select name="gender">
                     <option value="A">Any</option>
                     <option value="F">Female</option>
                     <option value="M">Male</option>
                 </select>
-                <label>Gender</label>
+                <label><i class="material-icons left">wc</i>Gender</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col s12">
                 <input type="text" name="location" value="">
-                <label>Location</label>
+                <label><i class="material-icons left">location_on</i>Location</label>
             </div>
         </div>
         <button type="submit" id="MenuMemberSearchButton" class="waves-effect waves-light btn red">
@@ -50,7 +55,7 @@
         </button>
     </form>
 </div>
-
+</#if>
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -67,7 +72,7 @@
     window.stargui = window.stargui || {};
     window.stargui.BASE_URL = "<@spring.url "" />";
     $("#contents").show();
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('select').material_select();
     });
 </script>

@@ -1,9 +1,14 @@
 package com.sngt.taxis.stargui.web.controllers;
 
+import com.sngt.taxis.stargui.web.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Map;
 
 @Controller
 public class StarGuiController {
@@ -29,10 +34,19 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/MenuMemberSearch")
-    public String MenuMemberSearchPost(String login, String gender, String location) {
-        LOGGER.info("Click Membres Recherche Search : POST. Login:"+login+" Gender:"+gender+" Location:"+location);
+    public ModelAndView MenuMemberSearchPost(String login, String gender, String location) {
+        LOGGER.info("Click Membres Recherche Search : POST. Login:" + login + " Gender:" + gender + " Location:" + location);
+
         //TODO faire le maping en base
-        return "MenuMemberSearch";
+        User user = new User();
+        user.initTest();
+
+        ModelAndView modelView = new ModelAndView("MenuMemberSearch");
+        modelView.addObject("user", user);
+        modelView.addObject("toto", "toto");
+
+        //return "MenuMemberSearch";
+        return modelView;
     }
 
 }

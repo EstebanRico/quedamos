@@ -13,7 +13,7 @@
 
 <nav>
     <div class="nav-wrapper">
-        <ul class="left hide-on-med-and-down">
+        <ul class="left">
             <li><a href="sass.html">Sass</a></li>
             <li><a class="dropdown-button" href="#!" data-activates="membres">Les Membres<i class="material-icons right">arrow_drop_down</i></a></li>
             <li><a class="dropdown-button" href="#!" data-activates="sorties">Les Sorties<i class="material-icons right">arrow_drop_down</i></a></li>
