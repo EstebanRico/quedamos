@@ -18,6 +18,38 @@ public class User {
     public String mail;
     public String location;
     public String description;
+    public String age;
+    public String inscription;
+
+    public String getInscription() {
+        return inscription;
+    }
+
+    public void setInscription(String inscription) {
+        this.inscription = inscription;
+    }
+
+
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String gender;
 
     public String getId() {
         return id;
@@ -101,15 +133,38 @@ public class User {
         this.description = description;
     }
 
-    public void initTest() {
-        id="12345678";
+    public void initTest1() {
+        id = "12345678";
         birthDate = Calendar.getInstance().getTime();
         creationDate = Calendar.getInstance().getTime();
-        nickName = "Nick Name";
+        nickName = "NickName";
         surName = "Sur Name";
         firstName = "First Name";
         mail = "mail@mail.com";
         location = "Paris";
-        description = "Description";
+        gender = "Female";
+        age = "25";
+        inscription="June 2015";
+        description = "Hello everybody. I am Aigul, from Kazakhstan and l am going to visit Paris with my friend." +
+                "(She is my colleague). I hope I can find some cool locals, singles to families, everything highly" +
+                "appreciated to get an amazing experience in Paris :) ";
     }
+
+    public void initTest2() {
+        id = "123456782";
+        birthDate = Calendar.getInstance().getTime();
+        creationDate = Calendar.getInstance().getTime();
+        nickName = "NickName2";
+        surName = "Sur Name2";
+        firstName = "First Name2";
+        mail = "mail@mail.com2";
+        location = "Paris2";
+        gender = "Female2";
+        age = "252";
+        inscription="June 2015";
+        description = "22Hello everybody. I am Aigul, from Kazakhstan and l am going to visit Paris with my friend." +
+                "(She is my colleague). I hope I can find some cool locals, singles to families, everything highly" +
+                "appreciated to get an amazing experience in Paris :) 22";
+    }
+
 }

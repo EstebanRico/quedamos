@@ -6,7 +6,7 @@
 </ul>
 
 <ul id="membres" class="dropdown-content">
-    <li><a href="MenuMemberSearch">Recherche</a></li>
+    <li><a href="<@spring.url "/member/search" />">Recherche</a></li>
     <li><a href="#!">two</a></li>
     <li><a href="#!">three</a></li>
 </ul>

@@ -4,6 +4,7 @@ import com.sngt.taxis.stargui.web.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,21 +29,35 @@ public class StarGuiController {
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/MenuMemberSearch")
+    @RequestMapping(method = RequestMethod.GET, value = "/member/search")
     public String MenuMemberSearchGet() {
         LOGGER.info("Click Membres Recherche : GET");
         return "MenuMemberSearch";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/MenuMemberSearch")
+    @RequestMapping(method = RequestMethod.GET, value = "/member/display"+"/{nickname}")
+    public ModelAndView memberProfileDisplay(@PathVariable String nickname) {
+        LOGGER.info("Member Profil Display : GET of the member with nickname="+nickname);
+
+        //TODO faire le maping en base
+        User user = new User();
+        user.initTest1();
+
+        ModelAndView modelView = new ModelAndView("MemberDisplay");
+        modelView.addObject("user", user);
+
+        return modelView;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/member/search")
     public ModelAndView MenuMemberSearchPost(String login, String gender, String location) {
         LOGGER.info("Click Membres Recherche Search : POST. Login:" + login + " Gender:" + gender + " Location:" + location);
 
         //TODO faire le maping en base
         User user = new User();
-        user.initTest();
+        user.initTest1();
         User user2 = new User();
-        user2.initTest();
+        user2.initTest2();
         user2.setNickName("USER2");
 
         List<User> listeUser = new ArrayList<User>();

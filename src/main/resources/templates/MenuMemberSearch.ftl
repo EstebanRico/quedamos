@@ -20,66 +20,79 @@
 <body>
 
 <#include "navbar.ftl" />
+
+<div class="row" style="margin-top:2em">
+
 <#if listeUser??>
-<#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateur-->
+<#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateurs au client-->
     <#list listeUser as user>
-    <div class="row">
-        <div class="col s6 offset-s3">
-            <ul class="collection ">
-                <a href="user${user.id!}" style="text-decoration:none;">
-                    <li class="collection-item avatar s6">
-                        <img src="http://cdn-premiere.ladmedia.fr/var/premiere/storage/images/fluctuat/societe/news/de-la-prediction-d-un-profil-psychopathe-sur-twitter-3454664/62778436-1-fre-FR/De-la-prediction-d-un-profil-psychopathe-sur-Twitter_w670_h372.jpg"
-                             alt="" class="circle">
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <ul class="collection ">
+                    <a href="display/${user.nickName!}" style="color:darkorange;">
+                        <li class="collection-item avatar s6">
+                            <img src="http://cdn-premiere.ladmedia.fr/var/premiere/storage/images/fluctuat/societe/news/de-la-prediction-d-un-profil-psychopathe-sur-twitter-3454664/62778436-1-fre-FR/De-la-prediction-d-un-profil-psychopathe-sur-Twitter_w670_h372.jpg"
+                                 alt="" class="circle">
                         <span class="title">
                         ${user.nickName!}
                         </span>
 
-                        <p>
-                        ${user.location!}
-                            <br>
-                            //TODO possibilité d'ajouter d'autres champs
-                        </p>
-                    </li>
-                </a>
-            </ul>
+                            <p>
+                            ${user.location!}
+                                <br>
+                                //TODO possibilité d'ajouter d'autres champs
+                            </p>
+                        </li>
+                    </a>
+                </ul>
+            </div>
         </div>
-    </div>
     </#list>
 <#else>
 
-<div class="row">
-    <form class="col s6 offset-s3" method="post" action="<@spring.url "/MenuMemberSearch" />">
+    <div class="row">
+        <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/search" />">
 
-        <div class="row">
-            <div class="input-field col s12">
-                <input type="text" name="login" value="">
-                <label><i class="material-icons left">contacts</i>Login</label>
+            <div class="row" style="margin-top:2em">
+                <div class="input-field col s12">
+                    <input type="text" name="login" value="">
+                    <label>
+                    <#--<i class="material-icons left">contacts</i>-->
+                        Login</label>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
+            <div class="row style=" margin-top:2em
+            "">
+            <div class="input-field col s12">
+                <input type="text" name="location" value="">
+                <label>
+                <#--<i class="material-icons left">location_on</i>-->
+                    Location</label>
+            </div>
+
+
+            <div class="row style=" margin-top:2em
+            ">
             <div class="input-field col s12">
                 <select name="gender">
                     <option value="A">Any</option>
                     <option value="F">Female</option>
                     <option value="M">Male</option>
                 </select>
-                <label><i class="material-icons left">wc</i>Gender</label>
+                <label>
+                <#--<i class="material-icons left">wc</i>-->
+                    Gender</label>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="input-field col s12">
-                <input type="text" name="location" value="">
-                <label><i class="material-icons left">location_on</i>Location</label>
-            </div>
-        </div>
 
-        <button type="submit" id="MenuMemberSearchButton" class="waves-effect waves-light btn red">
-            Search
-        </button>
+            <button type="submit" id="member/search" class="waves-effect waves-light btn red right"
+                    style="margin-top:2em">
+                Search
+            </button>
 
-    </form>
+        </form>
+    </div>
 </div>
 </#if>
 
