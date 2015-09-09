@@ -4,11 +4,12 @@ import com.sngt.taxis.stargui.web.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class StarGuiController {
@@ -40,12 +41,17 @@ public class StarGuiController {
         //TODO faire le maping en base
         User user = new User();
         user.initTest();
+        User user2 = new User();
+        user2.initTest();
+        user2.setNickName("USER2");
+
+        List<User> listeUser = new ArrayList<User>();
+        listeUser.add(user);
+        listeUser.add(user2);
 
         ModelAndView modelView = new ModelAndView("MenuMemberSearch");
-        modelView.addObject("user", user);
-        modelView.addObject("toto", "toto");
+        modelView.addObject("listeUser", listeUser);
 
-        //return "MenuMemberSearch";
         return modelView;
     }
 

@@ -1,7 +1,5 @@
 package com.sngt.taxis.stargui.web.model;
 
-import com.sun.scenario.effect.ImageData;
-
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,6 +8,8 @@ import java.util.Date;
  */
 public class User {
 
+
+    public String id;
     public Date birthDate;
     public Date creationDate;
     public String nickName;
@@ -18,7 +18,24 @@ public class User {
     public String mail;
     public String location;
     public String description;
-    //public ImageData picture;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String picture;
 
     public Date getBirthDate() {
         return birthDate;
@@ -85,13 +102,14 @@ public class User {
     }
 
     public void initTest() {
+        id="12345678";
         birthDate = Calendar.getInstance().getTime();
         creationDate = Calendar.getInstance().getTime();
         nickName = "Nick Name";
         surName = "Sur Name";
         firstName = "First Name";
-        mail = "Mail";
-        location = "Location";
+        mail = "mail@mail.com";
+        location = "Paris";
         description = "Description";
     }
 }

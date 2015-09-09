@@ -20,20 +20,43 @@
 <body>
 
 <#include "navbar.ftl" />
-<#if user??>
+<#if listeUser??>
+<#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateur-->
+    <#list listeUser as user>
+    <div class="row">
+        <div class="col s6 offset-s3">
+            <ul class="collection ">
+                <a href="user${user.id!}" style="text-decoration:none;">
+                    <li class="collection-item avatar s6">
+                        <img src="http://cdn-premiere.ladmedia.fr/var/premiere/storage/images/fluctuat/societe/news/de-la-prediction-d-un-profil-psychopathe-sur-twitter-3454664/62778436-1-fre-FR/De-la-prediction-d-un-profil-psychopathe-sur-Twitter_w670_h372.jpg"
+                             alt="" class="circle">
+                        <span class="title">
+                        ${user.nickName!}
+                        </span>
 
-${user.mail!}
-
+                        <p>
+                        ${user.location!}
+                            <br>
+                            //TODO possibilité d'ajouter d'autres champs
+                        </p>
+                    </li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    </#list>
 <#else>
 
 <div class="row">
     <form class="col s6 offset-s3" method="post" action="<@spring.url "/MenuMemberSearch" />">
+
         <div class="row">
             <div class="input-field col s12">
                 <input type="text" name="login" value="">
                 <label><i class="material-icons left">contacts</i>Login</label>
             </div>
         </div>
+
         <div class="row">
             <div class="input-field col s12">
                 <select name="gender">
@@ -44,15 +67,18 @@ ${user.mail!}
                 <label><i class="material-icons left">wc</i>Gender</label>
             </div>
         </div>
+
         <div class="row">
             <div class="input-field col s12">
                 <input type="text" name="location" value="">
                 <label><i class="material-icons left">location_on</i>Location</label>
             </div>
         </div>
+
         <button type="submit" id="MenuMemberSearchButton" class="waves-effect waves-light btn red">
             Search
         </button>
+
     </form>
 </div>
 </#if>
