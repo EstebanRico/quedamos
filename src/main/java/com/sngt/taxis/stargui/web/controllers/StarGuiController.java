@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -29,10 +30,38 @@ public class StarGuiController {
         return "index";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/member/register")
+    public String registerGet() {
+        LOGGER.info("Click Register");
+        return "register";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/member/register")
+    public ModelAndView registerPost(String mail, String login, String gender, String location, String pass, String confPass) {
+        LOGGER.info("Click Register. Mail:" + mail + " Pass:" + pass + " Login:"+login+" Gender:"+gender+" Location:"+location+" confPass:"+confPass);
+
+        User u = new User();
+        u.setNickName(login);
+        u.setCreationDate(Calendar.getInstance().getTime());
+        u.setGender(gender);
+        u.setMail(mail);
+        u.setPass(pass);
+        u.setLocation(location);
+
+        u.setDescription("Description is mine");
+
+        //TODO enregistrement de l'utilisateur en base de données
+
+        ModelAndView modelView = new ModelAndView("ProfileDisplay");
+        modelView.addObject("user", u);
+
+        return modelView;
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/member/search")
-    public String MenuMemberSearchGet() {
+    public String MemberSearchGet() {
         LOGGER.info("Click Membres Recherche : GET");
-        return "MenuMemberSearch";
+        return "MemberSearch";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/member/display"+"/{nickname}")
@@ -50,7 +79,7 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/member/search")
-    public ModelAndView MenuMemberSearchPost(String login, String gender, String location) {
+    public ModelAndView MemberSearchPost(String login, String gender, String location) {
         LOGGER.info("Click Membres Recherche Search : POST. Login:" + login + " Gender:" + gender + " Location:" + location);
 
         //TODO faire le maping en base
@@ -64,7 +93,7 @@ public class StarGuiController {
         listeUser.add(user);
         listeUser.add(user2);
 
-        ModelAndView modelView = new ModelAndView("MenuMemberSearch");
+        ModelAndView modelView = new ModelAndView("MemberSearch");
         modelView.addObject("listeUser", listeUser);
 
         return modelView;

@@ -19,39 +19,53 @@
 <body>
 
 <div class="row">
-    <form class="col s12" method="post" action="<@spring.url "/dashboard" />">
-        <div class="row">
-            <div class="input-field" >
-                <input type="email" class="validate" name="mail" value="a@a.a">
-                <label for="mail">Mail</label>
+    <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/register" />">
+
+        <div class="row" style="margin-top:2em">
+            <div class="input-field col s12">
+                <input type="text" name="login" value="">
+                <label>Login and NickName</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
-                <input type="password" class="validate" name="pass" value="z">
-                <label for="pass">Mot de passe</label>
+            <div class="input-field col s12">
+                <input type="text" name="mail" value="">
+                <label>E-Mail</label>
             </div>
         </div>
-        <button type="submit" class="waves-effect waves-light btn red">
-            S'identifier
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" name="pass" value="">
+                <label>Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" name="confPass" value="">
+                <label>Confirm password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" name="location" value="">
+                <label>Location</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <select name="gender">
+                    <option value="A">Any</option>
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                </select>
+                <label>Gender</label>
+            </div>
+        </div>
+
+        <button type="submit" class="waves-effect waves-light btn red right"
+                style="margin-top:2em">
+            Register
         </button>
-    </form>
-
- <#--   <form class="col s12" method="post" action="<@spring.url "/passForgot" />">
-        <button type="submit" class="waves-effect waves-light btn red">
-            Mot de passe oublié
-        </button>
-    </form>-->
-
-    <a href="passForgot">Mot de passe oublié</a><br>
-
-<#--    <form class="col s12" method="post" action="<@spring.url "/register" />">
-        <button type="submit" class="waves-effect waves-light btn red">
-            S'inscrire
-        </button>-->
-
-        <a href="member/register">Register</a>
-
     </form>
 </div>
 
@@ -69,8 +83,10 @@
 <script type="text/javascript">
     window.stargui = window.stargui || {};
     window.stargui.BASE_URL = "<@spring.url "" />";
-
     $("#contents").show();
+    $(document).ready(function () {
+        $('select').material_select();
+    });
 </script>
 
 <script src="<@spring.url "/static/js/loginEvents.js" />"></script>

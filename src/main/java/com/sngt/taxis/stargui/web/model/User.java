@@ -21,6 +21,17 @@ public class User {
     public String age;
     public String inscription;
 
+    public String pass;
+
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
     public String getInscription() {
         return inscription;
     }
@@ -30,7 +41,6 @@ public class User {
     }
 
 
-
     public String getAge() {
         return age;
     }
@@ -38,7 +48,6 @@ public class User {
     public void setAge(String age) {
         this.age = age;
     }
-
 
 
     public String getGender() {
@@ -144,7 +153,7 @@ public class User {
         location = "Paris";
         gender = "Female";
         age = "25";
-        inscription="June 2015";
+        inscription = "June 2015";
         description = "Hello everybody. I am Aigul, from Kazakhstan and l am going to visit Paris with my friend." +
                 "(She is my colleague). I hope I can find some cool locals, singles to families, everything highly" +
                 "appreciated to get an amazing experience in Paris :) ";
@@ -161,10 +170,10 @@ public class User {
         location = "Paris2";
         gender = "Female2";
         age = "252";
-        inscription="June 2015";
+        inscription = "June 2015";
         description = "22Hello everybody. I am Aigul, from Kazakhstan and l am going to visit Paris with my friend." +
                 "(She is my colleague). I hope I can find some cool locals, singles to families, everything highly" +
                 "appreciated to get an amazing experience in Paris :) 22";
     }
 
-}
+ }
