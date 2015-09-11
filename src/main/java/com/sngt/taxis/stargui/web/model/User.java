@@ -10,8 +10,8 @@ public class User {
 
 
     public String id;
-    public Date birthDate;
-    public Date creationDate;
+    public String birthDate;
+    public long creationDate;
     public String nickName;
     public String surName;
     public String firstName;
@@ -78,19 +78,19 @@ public class User {
 
     public String picture;
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Date getCreationDate() {
+    public long getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(long creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -144,8 +144,8 @@ public class User {
 
     public void initTest1() {
         id = "12345678";
-        birthDate = Calendar.getInstance().getTime();
-        creationDate = Calendar.getInstance().getTime();
+        birthDate = "2005-05-02";
+        creationDate = System.currentTimeMillis();
         nickName = "NickName";
         surName = "Sur Name";
         firstName = "First Name";
@@ -161,8 +161,8 @@ public class User {
 
     public void initTest2() {
         id = "123456782";
-        birthDate = Calendar.getInstance().getTime();
-        creationDate = Calendar.getInstance().getTime();
+        birthDate = "2005-05-02";
+        creationDate = System.currentTimeMillis();
         nickName = "NickName2";
         surName = "Sur Name2";
         firstName = "First Name2";

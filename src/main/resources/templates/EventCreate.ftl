@@ -18,70 +18,41 @@
 </head>
 <body>
 
+<#include "navbar.ftl" />
+
+<h2 class="header center">Create event</h2>
+
 <div class="row">
-    <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/register" />">
+    <form class="col s6 offset-s3" method="post" action="<@spring.url "/event/create" />">
 
         <div class="row" style="margin-top:2em">
             <div class="input-field col s6">
-                <input type="text" name="login" value="">
-                <label>Login and NickName</label>
+                <input type="text" name="name" value="">
+                <label>Event name</label>
             </div>
             <div class="input-field col s6">
-                <input type="text" name="mail" value="">
-                <label>Email</label>
-            </div>
-        </div>
-    <#if advanced??>
-        <div class="input-field" style="display:none">
-            <input value="yes" type="text" name="advanced">
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="firstName" value="">
-                <label>FirstName</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="text" name="surName" value="">
-                <label>SurName</label>
-            </div>
-        </div>
-    </#if>
-
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="pass" value="">
-                <label>Password</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="text" name="confPass" value="">
-                <label>Confirm password</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="location" value="">
-                <label>Location</label>
-            </div>
-            <div class="input-field col s6">
-                <select name="gender">
-                    <option value="A">Any</option>
-                    <option value="F">Female</option>
-                    <option value="M">Male</option>
-                </select>
-                <label>Gender</label>
+                <input type="text" name="type" value="">
+                <label>Event type</label>
             </div>
         </div>
 
-    <#if advanced??>
         <div class="row">
             <div class="input-field col s6">
-                <input type="date" name="birthDate" value="">
-            <#--<label>BirthDate</label>-->
+                <input type="text" name="lieuRDV" value="">
+                <label>Event position</label>
             </div>
-            <#--<div class="input-field col s6">
-                <input type="text" name="location" value="">
-                <label>????</label>
-            </div>-->
+            <div class="input-field col s3">
+                <input type="text" name="dateRDV" value="">
+                <label>Event date</label>
+            </div>
+            <div class="input-field col s2">
+                <input type="text" name="heureRDV" value="">
+                <label>Event time</label>
+            </div>
+            <div class="input-field col s1">
+                <input type="text" name="nbPlaces" value="" />
+                <label>Places</label>
+            </div>
         </div>
 
         <div class="row">
@@ -91,11 +62,10 @@
             </div>
         </div>
 
-    </#if>
 
         <button type="submit" class="waves-effect waves-light btn red right"
                 style="margin-top:2em">
-            Register
+            Create
         </button>
 
     </form>

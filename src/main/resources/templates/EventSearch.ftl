@@ -12,94 +12,89 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
     <link rel="stylesheet" href="http://www.liedman.net/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet'/>
+<#--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">-->
 
     <link href="<@spring.url "/static/css/global.css" />" rel="stylesheet">
 
 </head>
 <body>
 
-<div class="row">
-    <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/register" />">
+<#include "navbar.ftl" />
 
-        <div class="row" style="margin-top:2em">
-            <div class="input-field col s6">
-                <input type="text" name="login" value="">
-                <label>Login and NickName</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="text" name="mail" value="">
-                <label>Email</label>
-            </div>
-        </div>
-    <#if advanced??>
-        <div class="input-field" style="display:none">
-            <input value="yes" type="text" name="advanced">
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="firstName" value="">
-                <label>FirstName</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="text" name="surName" value="">
-                <label>SurName</label>
-            </div>
-        </div>
-    </#if>
+<div class="row" style="margin-top:2em">
 
+<#if listeUser??>
+<#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateurs au client-->
+    <#list listeUser as user>
         <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="pass" value="">
-                <label>Password</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="text" name="confPass" value="">
-                <label>Confirm password</label>
+            <div class="col s6 offset-s3">
+                <ul class="collection ">
+                    <a href="display/${user.nickName!}" style="color:darkorange;">
+                        <li class="collection-item avatar s6">
+                            <img src="http://cdn-premiere.ladmedia.fr/var/premiere/storage/images/fluctuat/societe/news/de-la-prediction-d-un-profil-psychopathe-sur-twitter-3454664/62778436-1-fre-FR/De-la-prediction-d-un-profil-psychopathe-sur-Twitter_w670_h372.jpg"
+                                 alt="" class="circle">
+                        <span class="title">
+                        ${user.nickName!}
+                        </span>
+
+                            <p>
+                            ${user.location!}
+                                <br>
+                                //TODO possibilité d'ajouter d'autres champs
+                            </p>
+                        </li>
+                    </a>
+                </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="input-field col s6">
+    </#list>
+<#else>
+
+    <div class="row">
+        <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/search" />">
+
+            <div class="row" style="margin-top:2em">
+                <div class="input-field col s12">
+                    <input type="text" name="login" value="">
+                    <label>
+                    <#--<i class="material-icons left">contacts</i>-->
+                        Login</label>
+                </div>
+            </div>
+
+            <div class="row style=" margin-top:2em
+            "">
+            <div class="input-field col s12">
                 <input type="text" name="location" value="">
-                <label>Location</label>
+                <label>
+                <#--<i class="material-icons left">location_on</i>-->
+                    Location</label>
             </div>
-            <div class="input-field col s6">
+
+
+            <div class="row style=" margin-top:2em
+            ">
+            <div class="input-field col s12">
                 <select name="gender">
                     <option value="A">Any</option>
                     <option value="F">Female</option>
                     <option value="M">Male</option>
                 </select>
-                <label>Gender</label>
+                <label>
+                <#--<i class="material-icons left">wc</i>-->
+                    Gender</label>
             </div>
-        </div>
 
-    <#if advanced??>
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="date" name="birthDate" value="">
-            <#--<label>BirthDate</label>-->
-            </div>
-            <#--<div class="input-field col s6">
-                <input type="text" name="location" value="">
-                <label>????</label>
-            </div>-->
-        </div>
 
-        <div class="row">
-            <div class="input-field col s12">
-                <textarea id="description" class="materialize-textarea"></textarea>
-                <label>Description</label>
-            </div>
-        </div>
+            <button type="submit" id="member/search" class="waves-effect waves-light btn red right"
+                    style="margin-top:2em">
+                Search
+            </button>
 
-    </#if>
-
-        <button type="submit" class="waves-effect waves-light btn red right"
-                style="margin-top:2em">
-            Register
-        </button>
-
-    </form>
+        </form>
+    </div>
 </div>
+</#if>
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

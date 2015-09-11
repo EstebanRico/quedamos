@@ -30,7 +30,7 @@
     <div class="row">
         <div class="col s6 offset-s3">
         <#--<div class="col" style="max-width:800px" align="center">-->
-            <#--//TODO faire du proportionel-->
+        <#--//TODO faire du proportionel-->
             <div class="card blue-grey darken-1">
                 <div class="row">
 
@@ -38,6 +38,11 @@
                         <div class="row">
                             <div class="card-content white-text">
                                 <span class="card-title">${user.nickName!}</span>
+                                    <#if edit??>
+                                        <a class="btn-floating btn waves-effect waves-light red"
+                                           href="/member/registerAdvanced"><i class="material-icons">mode_edit</i></a>
+                                    </#if>
+
                             </div>
                             <div class="card-content white-text">
                                 <i class="material-icons left">wc</i>

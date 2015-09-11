@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -30,30 +29,51 @@ public class StarGuiController {
         return "index";
     }
 
+    /*****************
+     * MEMBER
+     **************************/
+
     @RequestMapping(method = RequestMethod.GET, value = "/member/register")
     public String registerGet() {
         LOGGER.info("Click Register");
         return "register";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/member/registerAdvanced")
+    public ModelAndView registerAdvancedGet() {
+        LOGGER.info("Click Register Advanced");
+
+        ModelAndView modelView = new ModelAndView("register");
+        modelView.addObject("advanced", "yes");
+
+        return modelView;
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/member/register")
-    public ModelAndView registerPost(String mail, String login, String gender, String location, String pass, String confPass) {
-        LOGGER.info("Click Register. Mail:" + mail + " Pass:" + pass + " Login:"+login+" Gender:"+gender+" Location:"+location+" confPass:"+confPass);
+    public ModelAndView registerPost(String mail, String login, String gender, String location, String pass, String confPass, String advanced, String description, String surName, String firstName, String birthDate) {
+        LOGGER.info("Click Register. Mail:" + mail + " Pass:" + pass + " Login:" + login + " Gender:" + gender + " Location:" + location + " confPass:" + confPass);
 
         User u = new User();
         u.setNickName(login);
-        u.setCreationDate(Calendar.getInstance().getTime());
+        u.setCreationDate(System.currentTimeMillis());
         u.setGender(gender);
         u.setMail(mail);
         u.setPass(pass);
         u.setLocation(location);
 
-        u.setDescription("Description is mine");
-
+        if (null != advanced) {
+            LOGGER.info("Click Register Advanced");
+            u.setDescription(description);
+            u.setSurName(surName);
+            u.setSurName(firstName);
+            u.setBirthDate(birthDate);
+        }
         //TODO enregistrement de l'utilisateur en base de données
 
-        ModelAndView modelView = new ModelAndView("ProfileDisplay");
+
+        ModelAndView modelView = new ModelAndView("MemberDisplay");
         modelView.addObject("user", u);
+        modelView.addObject("edit", "yes");
 
         return modelView;
     }
@@ -64,9 +84,9 @@ public class StarGuiController {
         return "MemberSearch";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/member/display"+"/{nickname}")
+    @RequestMapping(method = RequestMethod.GET, value = "/member/display" + "/{nickname}")
     public ModelAndView memberProfileDisplay(@PathVariable String nickname) {
-        LOGGER.info("Member Profil Display : GET of the member with nickname="+nickname);
+        LOGGER.info("Member Profil Display : GET of the member with nickname=" + nickname);
 
         //TODO faire le maping en base
         User user = new User();
@@ -97,6 +117,29 @@ public class StarGuiController {
         modelView.addObject("listeUser", listeUser);
 
         return modelView;
+    }
+
+    /*********************
+     * EVENT
+     ****************/
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/event/create")
+    public String EventCreateGET() {
+        LOGGER.info("Click Event Create : GET");
+        return "EventCreate";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/event/create")
+    public String EventCreatePOST() {
+        LOGGER.info("Click Event Create : POST");
+        return "indexBack";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/event/search")
+    public String EventSearchGet() {
+        LOGGER.info("Click Event Search : GET");
+        return "EventSearch";
     }
 
 }
