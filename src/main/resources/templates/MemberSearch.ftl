@@ -28,8 +28,8 @@
     <#list listeUser as user>
         <div class="row">
             <div class="col s6 offset-s3">
-                <ul class="collection ">
-                    <a href="display/${user.nickName!}" style="color:darkorange;">
+                <ul class="collection">
+                    <a href="display/${user.login!}" style="color:darkorange;">
                         <li class="collection-item avatar s6">
                             <img src="http://cdn-premiere.ladmedia.fr/var/premiere/storage/images/fluctuat/societe/news/de-la-prediction-d-un-profil-psychopathe-sur-twitter-3454664/62778436-1-fre-FR/De-la-prediction-d-un-profil-psychopathe-sur-Twitter_w670_h372.jpg"
                                  alt="" class="circle">

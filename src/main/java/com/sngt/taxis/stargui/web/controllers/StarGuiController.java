@@ -1,8 +1,10 @@
 package com.sngt.taxis.stargui.web.controllers;
 
+import com.sngt.taxis.stargui.web.dao.UserDAOInterface;
 import com.sngt.taxis.stargui.web.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,11 @@ import java.util.List;
 public class StarGuiController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(StarGuiController.class);
+
+
+    @Autowired
+    UserDAOInterface repository;
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/dashboard")
     public String dashboard(String mail, String pass) {
@@ -54,7 +61,7 @@ public class StarGuiController {
         LOGGER.info("Click Register. Mail:" + mail + " Pass:" + pass + " Login:" + login + " Gender:" + gender + " Location:" + location + " confPass:" + confPass);
 
         User u = new User();
-        u.setNickName(login);
+        u.setLogin(login);
         u.setCreationDate(System.currentTimeMillis());
         u.setGender(gender);
         u.setMail(mail);
@@ -68,12 +75,27 @@ public class StarGuiController {
             u.setSurName(firstName);
             u.setBirthDate(birthDate);
         }
-        //TODO enregistrement de l'utilisateur en base de données
+
+        repository.save(u);
 
 
         ModelAndView modelView = new ModelAndView("MemberDisplay");
         modelView.addObject("user", u);
         modelView.addObject("edit", "yes");
+
+        return modelView;
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/member/display" + "/{nickname}")
+    public ModelAndView memberProfileDisplay(@PathVariable String nickname) {
+        LOGGER.info("Member Profil Display : GET of the member with nickname=" + nickname);
+
+        User byLogin = repository.findByLogin(nickname);
+        LOGGER.info(byLogin.toString());
+
+        ModelAndView modelView = new ModelAndView("MemberDisplay");
+        modelView.addObject("user", byLogin);
 
         return modelView;
     }
@@ -84,34 +106,14 @@ public class StarGuiController {
         return "MemberSearch";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/member/display" + "/{nickname}")
-    public ModelAndView memberProfileDisplay(@PathVariable String nickname) {
-        LOGGER.info("Member Profil Display : GET of the member with nickname=" + nickname);
-
-        //TODO faire le maping en base
-        User user = new User();
-        user.initTest1();
-
-        ModelAndView modelView = new ModelAndView("MemberDisplay");
-        modelView.addObject("user", user);
-
-        return modelView;
-    }
-
     @RequestMapping(method = RequestMethod.POST, value = "/member/search")
     public ModelAndView MemberSearchPost(String login, String gender, String location) {
         LOGGER.info("Click Membres Recherche Search : POST. Login:" + login + " Gender:" + gender + " Location:" + location);
 
-        //TODO faire le maping en base
-        User user = new User();
-        user.initTest1();
-        User user2 = new User();
-        user2.initTest2();
-        user2.setNickName("USER2");
+        User byLogin = repository.findByLogin(login);
 
         List<User> listeUser = new ArrayList<User>();
-        listeUser.add(user);
-        listeUser.add(user2);
+        listeUser.add(byLogin);
 
         ModelAndView modelView = new ModelAndView("MemberSearch");
         modelView.addObject("listeUser", listeUser);

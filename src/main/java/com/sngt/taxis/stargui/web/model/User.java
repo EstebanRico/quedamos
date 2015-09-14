@@ -1,18 +1,24 @@
 package com.sngt.taxis.stargui.web.model;
 
-import java.util.Calendar;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by skiss on 08/09/2015.
  */
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue
+    public Integer userId;
 
-    public String id;
     public String birthDate;
     public long creationDate;
-    public String nickName;
+    @Column(unique = true, nullable = false)
+    public String login;
     public String surName;
     public String firstName;
     public String mail;
@@ -20,8 +26,9 @@ public class User {
     public String description;
     public String age;
     public String inscription;
-
+    public String picture;
     public String pass;
+    public String gender;
 
 
     public String getPass() {
@@ -58,14 +65,13 @@ public class User {
         this.gender = gender;
     }
 
-    public String gender;
 
-    public String getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getPicture() {
@@ -76,7 +82,6 @@ public class User {
         this.picture = picture;
     }
 
-    public String picture;
 
     public String getBirthDate() {
         return birthDate;
@@ -94,12 +99,12 @@ public class User {
         this.creationDate = creationDate;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getLogin() {
+        return login;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getSurName() {
@@ -142,11 +147,31 @@ public class User {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", birthDate='" + birthDate + '\'' +
+                ", creationDate=" + creationDate +
+                ", login='" + login + '\'' +
+                ", surName='" + surName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", mail='" + mail + '\'' +
+                ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", age='" + age + '\'' +
+                ", inscription='" + inscription + '\'' +
+                ", pass='" + pass + '\'' +
+                ", gender='" + gender + '\'' +
+                ", picture='" + picture + '\'' +
+                '}';
+    }
+
     public void initTest1() {
-        id = "12345678";
+        userId = 12345678;
         birthDate = "2005-05-02";
         creationDate = System.currentTimeMillis();
-        nickName = "NickName";
+        login = "NickName";
         surName = "Sur Name";
         firstName = "First Name";
         mail = "mail@mail.com";
@@ -160,10 +185,10 @@ public class User {
     }
 
     public void initTest2() {
-        id = "123456782";
+        userId = 123456782;
         birthDate = "2005-05-02";
         creationDate = System.currentTimeMillis();
-        nickName = "NickName2";
+        login = "NickName2";
         surName = "Sur Name2";
         firstName = "First Name2";
         mail = "mail@mail.com2";
@@ -176,4 +201,4 @@ public class User {
                 "appreciated to get an amazing experience in Paris :) 22";
     }
 
- }
+}
