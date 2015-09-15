@@ -1,9 +1,5 @@
 package com.sngt.taxis.stargui.web.controllers;
 
-import com.sngt.taxis.stargui.web.domain.amqp.TG7Message;
-import com.sngt.taxis.stargui.web.domain.amqp.TG7MessageUtils;
-import com.sngt.taxis.stargui.web.services.AMQPService;
-import com.sngt.taxis.stargui.web.services.amqp.AMQPDataParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

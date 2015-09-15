@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,22 +30,23 @@ public class StarGuiController {
      **************************/
 
     @RequestMapping(method = RequestMethod.POST, value = "/dashboard")
-    public ModelAndView dashboard(String mail, String pass) {
+    public ModelAndView dashboard(String mail, String pass, HttpServletResponse response) {
         LOGGER.info("Click Identify Login Mail:" + mail + " Pass:" + pass);
 
         User byMail = repository.findByMail(mail);
         ModelAndView modelView;
         if (null != byMail) {
             LOGGER.info(byMail.toString());
-
             if (pass.equals(byMail.getPass())) {
                 modelView = new ModelAndView("MemberDisplay");
                 modelView.addObject("user", byMail);
                 modelView.addObject("edit", "yes");
+                Cookie cookie = new Cookie("SessionID", ""+byMail.getUserId());
+                response.addCookie(cookie);
             } else {
                 modelView = new ModelAndView("index");
             }
-        }else {
+        } else {
             modelView = new ModelAndView("index");
         }
         return modelView;
@@ -54,7 +57,7 @@ public class StarGuiController {
      **************************/
 
     @RequestMapping(method = RequestMethod.GET, value = "/member/register")
-    public String registerGet() {
+    public String registerGet(HttpServletResponse response) {
         LOGGER.info("Click Register");
         return "register";
     }
