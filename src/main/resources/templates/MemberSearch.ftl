@@ -23,30 +23,34 @@
 
 <div class="row" style="margin-top:2em">
 
-<#if listeUser??>
+<#if (listeUser)??>
 <#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateurs au client-->
     <#list listeUser as user>
-        <div class="row">
-            <div class="col s6 offset-s3">
-                <ul class="collection">
-                    <a href="display/${user.login!}" style="color:darkorange;">
-                        <li class="collection-item avatar s6">
-                            <img src="http://cdn-premiere.ladmedia.fr/var/premiere/storage/images/fluctuat/societe/news/de-la-prediction-d-un-profil-psychopathe-sur-twitter-3454664/62778436-1-fre-FR/De-la-prediction-d-un-profil-psychopathe-sur-Twitter_w670_h372.jpg"
-                                 alt="" class="circle">
+        <#if (user.login)??>
+            <div class="row">
+                <div class="col s6 offset-s3">
+                    <ul class="collection">
+                        <a href="display/${user.login!}" style="color:darkorange;">
+                            <li class="collection-item avatar s6">
+                                <img src="http://cdn-premiere.ladmedia.fr/var/premiere/storage/images/fluctuat/societe/news/de-la-prediction-d-un-profil-psychopathe-sur-twitter-3454664/62778436-1-fre-FR/De-la-prediction-d-un-profil-psychopathe-sur-Twitter_w670_h372.jpg"
+                                     alt="" class="circle">
                         <span class="title">
-                        ${user.nickName!}
+                        ${user.login!}
                         </span>
 
-                            <p>
-                            ${user.location!}
-                                <br>
-                                //TODO possibilité d'ajouter d'autres champs
-                            </p>
-                        </li>
-                    </a>
-                </ul>
+                                <p>
+                                ${user.location!}
+                                    <br>
+                                    //TODO possibilité d'ajouter d'autres champs
+                                </p>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
             </div>
-        </div>
+        <#else>
+            Aucun utilisteur avec ces informations.
+        </#if>
     </#list>
 <#else>
 

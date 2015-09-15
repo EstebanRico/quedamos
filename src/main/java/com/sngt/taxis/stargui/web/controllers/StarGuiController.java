@@ -23,17 +23,30 @@ public class StarGuiController {
     @Autowired
     UserDAOInterface repository;
 
+    /*****************
+     * DASHBOARD
+     **************************/
 
     @RequestMapping(method = RequestMethod.POST, value = "/dashboard")
-    public String dashboard(String mail, String pass) {
+    public ModelAndView dashboard(String mail, String pass) {
         LOGGER.info("Click Identify Login Mail:" + mail + " Pass:" + pass);
-        //TODO faire le maping en base
-        if ("a@a.a".equals(mail) && "z".equals(pass)) {
-            LOGGER.info("LOGIN");
-            return "dashboard";
+
+        User byMail = repository.findByMail(mail);
+        ModelAndView modelView;
+        if (null != byMail) {
+            LOGGER.info(byMail.toString());
+
+            if (pass.equals(byMail.getPass())) {
+                modelView = new ModelAndView("MemberDisplay");
+                modelView.addObject("user", byMail);
+                modelView.addObject("edit", "yes");
+            } else {
+                modelView = new ModelAndView("index");
+            }
+        }else {
+            modelView = new ModelAndView("index");
         }
-        LOGGER.info("NOT LOGIN");
-        return "index";
+        return modelView;
     }
 
     /*****************
@@ -46,7 +59,7 @@ public class StarGuiController {
         return "register";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/member/registerAdvanced")
+    @RequestMapping(method = RequestMethod.GET, value = "/member/modify")
     public ModelAndView registerAdvancedGet() {
         LOGGER.info("Click Register Advanced");
 
@@ -57,27 +70,10 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/member/register")
-    public ModelAndView registerPost(String mail, String login, String gender, String location, String pass, String confPass, String advanced, String description, String surName, String firstName, String birthDate) {
-        LOGGER.info("Click Register. Mail:" + mail + " Pass:" + pass + " Login:" + login + " Gender:" + gender + " Location:" + location + " confPass:" + confPass);
-
-        User u = new User();
-        u.setLogin(login);
-        u.setCreationDate(System.currentTimeMillis());
-        u.setGender(gender);
-        u.setMail(mail);
-        u.setPass(pass);
-        u.setLocation(location);
-
-        if (null != advanced) {
-            LOGGER.info("Click Register Advanced");
-            u.setDescription(description);
-            u.setSurName(surName);
-            u.setSurName(firstName);
-            u.setBirthDate(birthDate);
-        }
+    public ModelAndView registerPost(User u) {
+        LOGGER.info("Click Register.");
 
         repository.save(u);
-
 
         ModelAndView modelView = new ModelAndView("MemberDisplay");
         modelView.addObject("user", u);
@@ -87,11 +83,11 @@ public class StarGuiController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/member/display" + "/{nickname}")
-    public ModelAndView memberProfileDisplay(@PathVariable String nickname) {
-        LOGGER.info("Member Profil Display : GET of the member with nickname=" + nickname);
+    @RequestMapping(method = RequestMethod.GET, value = "/member/display" + "/{login}")
+    public ModelAndView memberProfileDisplay(@PathVariable String login) {
+        LOGGER.info("Member Profil Display : GET of the member with nickname=" + login);
 
-        User byLogin = repository.findByLogin(nickname);
+        User byLogin = repository.findByLogin(login);
         LOGGER.info(byLogin.toString());
 
         ModelAndView modelView = new ModelAndView("MemberDisplay");

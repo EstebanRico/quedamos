@@ -22,13 +22,13 @@
     <form class="col s12" method="post" action="<@spring.url "/dashboard" />">
         <div class="row">
             <div class="input-field" >
-                <input type="email" class="validate" name="mail" value="a@a.a">
+                <input type="email" class="validate" name="mail">
                 <label for="mail">Mail</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <input type="password" class="validate" name="pass" value="z">
+                <input type="password" class="validate" name="pass">
                 <label for="pass">Mot de passe</label>
             </div>
         </div>

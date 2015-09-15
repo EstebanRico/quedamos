@@ -171,7 +171,7 @@ public class User {
         userId = 12345678;
         birthDate = "2005-05-02";
         creationDate = System.currentTimeMillis();
-        login = "NickName";
+        login = "Login";
         surName = "Sur Name";
         firstName = "First Name";
         mail = "mail@mail.com";
@@ -188,7 +188,7 @@ public class User {
         userId = 123456782;
         birthDate = "2005-05-02";
         creationDate = System.currentTimeMillis();
-        login = "NickName2";
+        login = "Login2";
         surName = "Sur Name2";
         firstName = "First Name2";
         mail = "mail@mail.com2";

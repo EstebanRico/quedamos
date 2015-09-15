@@ -37,10 +37,10 @@
                     <div class="col s6">
                         <div class="row">
                             <div class="card-content white-text">
-                                <span class="card-title">${user.nickName!}</span>
+                                <span class="card-title">${user.login!}</span>
                                     <#if edit??>
                                         <a class="btn-floating btn waves-effect waves-light red"
-                                           href="/member/registerAdvanced"><i class="material-icons">mode_edit</i></a>
+                                           href="/member/modify"><i class="material-icons">mode_edit</i></a>
                                     </#if>
 
                             </div>

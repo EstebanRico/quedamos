@@ -24,7 +24,7 @@
         <div class="row" style="margin-top:2em">
             <div class="input-field col s6">
                 <input type="text" name="login" value="">
-                <label>Login and NickName</label>
+                <label>Nickname</label>
             </div>
             <div class="input-field col s6">
                 <input type="text" name="mail" value="">
