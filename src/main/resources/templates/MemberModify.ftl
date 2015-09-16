@@ -18,49 +18,38 @@
 </head>
 <body>
 
+<#include "navbar.ftl" />
+
+<#if user??>
 
 <div class="row">
-    <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/register" />">
+    <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/modify" />">
 
         <div class="row" style="margin-top:2em">
             <div class="input-field col s6">
-                <input type="text" name="login" value="">
+                <input type="text" name="login" value="${user.login!}">
                 <label>Nickname</label>
             </div>
             <div class="input-field col s6">
-                <input type="text" name="mail" value="">
+                <input type="text" name="mail" value="${user.mail!}">
                 <label>Email</label>
             </div>
         </div>
-    <#if advanced??>
-        <div class="input-field" style="display:none">
-            <input value="yes" type="text" name="advanced">
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="firstName" value="">
-                <label>FirstName</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="text" name="surName" value="">
-                <label>SurName</label>
-            </div>
-        </div>
-    </#if>
 
         <div class="row">
             <div class="input-field col s6">
-                <input type="text" name="pass" value="">
-                <label>Password</label>
+                <input type="text" name="firstName" value="${user.firstName!}">
+                <label>FirstName</label>
             </div>
             <div class="input-field col s6">
-                <input type="text" name="confPass" value="">
-                <label>Confirm password</label>
+                <input type="text" name="surName" value=${user.surName!}"">
+                <label>SurName</label>
             </div>
         </div>
+
         <div class="row">
             <div class="input-field col s6">
-                <input type="text" name="location" value="">
+                <input type="text" name="location" value="${user.location!}">
                 <label>Location</label>
             </div>
             <div class="input-field col s6">
@@ -73,34 +62,27 @@
             </div>
         </div>
 
-    <#if advanced??>
         <div class="row">
             <div class="input-field col s6">
-                <input type="date" name="birthDate" value="">
-            <#--<label>BirthDate</label>-->
+                <input type="date" name="birthDate" value="${user.birthDate!}">
             </div>
-            <#--<div class="input-field col s6">
-                <input type="text" name="location" value="">
-                <label>????</label>
-            </div>-->
         </div>
 
         <div class="row">
             <div class="input-field col s12">
-                <textarea id="description" class="materialize-textarea"></textarea>
+                <textarea name="description" class="materialize-textarea" value="${user.description!}"></textarea>
                 <label>Description</label>
             </div>
         </div>
 
-    </#if>
-
         <button type="submit" class="waves-effect waves-light btn red right"
                 style="margin-top:2em">
-            Register
+            Save
         </button>
 
     </form>
 </div>
+</#if>
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

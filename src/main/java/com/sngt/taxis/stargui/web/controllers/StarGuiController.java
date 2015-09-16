@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +31,12 @@ public class StarGuiController {
      **************************/
 
     @RequestMapping(method = RequestMethod.POST, value = "/dashboard")
-    public ModelAndView dashboard(String mail, String pass, HttpServletResponse response) {
+    public ModelAndView dashboard(String mail, String pass, HttpServletRequest request) {
         LOGGER.info("Click Identify Login Mail:" + mail + " Pass:" + pass);
+
+        /* Création ou récupération de la session */
+        HttpSession session = request.getSession();
+        LOGGER.info("Création de la session");
 
         User byMail = repository.findByMail(mail);
         ModelAndView modelView;
@@ -41,8 +46,9 @@ public class StarGuiController {
                 modelView = new ModelAndView("MemberDisplay");
                 modelView.addObject("user", byMail);
                 modelView.addObject("edit", "yes");
-                Cookie cookie = new Cookie("SessionID", ""+byMail.getUserId());
-                response.addCookie(cookie);
+                /* Mise en session d'une chaîne de caractères */
+                session.setAttribute("userId", byMail.getUserId());
+                LOGGER.info("Insertion dans la session de la valeur:" + byMail.getUserId());
             } else {
                 modelView = new ModelAndView("index");
             }
@@ -63,11 +69,35 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/member/modify")
-    public ModelAndView registerAdvancedGet() {
+    public ModelAndView registerAdvancedGet(HttpServletRequest request) {
         LOGGER.info("Click Register Advanced");
 
-        ModelAndView modelView = new ModelAndView("register");
-        modelView.addObject("advanced", "yes");
+        /* Récupération de l'objet depuis la session */
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        LOGGER.info("Récupération de la session de la valeur de session : " + userId);
+        User userById = repository.findByUserId(userId);
+
+        ModelAndView modelView = new ModelAndView("MemberModify");
+        modelView.addObject("user", userById);
+
+        return modelView;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/member/modify")
+    public ModelAndView memberModifyPost(User u, HttpServletRequest request) {
+        LOGGER.info("Click save member modification");
+
+        repository.update(u);
+
+        //SI save a fonctionné alors on retourne à l'index en disant OK
+        //SINON on retourne à la meme pas en disant non OK et les champs qui posent problèmes.
+
+        /* Récupération de l'objet depuis la session */
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        LOGGER.info("Récupération de la session de la valeur de session : " + userId);
+        User userById = repository.findByUserId(userId);
+
+        ModelAndView modelView = new ModelAndView("dashboard");
 
         return modelView;
     }
@@ -78,9 +108,12 @@ public class StarGuiController {
 
         repository.save(u);
 
-        ModelAndView modelView = new ModelAndView("MemberDisplay");
+        //SI save a fonctionné alors on retourne à l'index en disant OK
+        //SINON on retourne à la meme pas en disant non OK et les champs qui posent problèmes.
+
+        ModelAndView modelView = new ModelAndView("index");
         modelView.addObject("user", u);
-        modelView.addObject("edit", "yes");
+        modelView.addObject("response", "yes");
 
         return modelView;
     }
