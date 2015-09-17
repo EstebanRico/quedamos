@@ -24,15 +24,18 @@
 
 <div class="row">
     <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/modify" />">
-
+        <!--Attention il ne faut surtout pas oublier à ajouter les nouveaux champs dans le servlet -->
         <div class="row" style="margin-top:2em">
             <div class="input-field col s6">
-                <input type="text" name="login" value="${user.login!}">
+                <input type="text" name="login" value="${user.login!}" readonly>
                 <label>Nickname</label>
             </div>
             <div class="input-field col s6">
-                <input type="text" name="mail" value="${user.mail!}">
+                <input type="text" name="mail" value="${user.mail!}" readonly>
                 <label>Email</label>
+            </div>
+            <div class="input-field col s6">
+                <input type="hidden" name="userId" value="${user.userId!}" readonly>
             </div>
         </div>
 

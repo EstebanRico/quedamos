@@ -17,11 +17,16 @@ public class User {
 
     public String birthDate;
     public long creationDate;
+
     @Column(unique = true, nullable = false)
     public String login;
+
     public String surName;
     public String firstName;
+
+    @Column(unique = true, nullable = false)
     public String mail;
+
     public String location;
     public String description;
     public String age;
@@ -30,6 +35,11 @@ public class User {
     public String pass;
     public String gender;
 
+
+ /*   @Override
+    public int hashCode() {
+        return userId;
+    }*/
 
     public String getPass() {
         return pass;
@@ -201,4 +211,11 @@ public class User {
                 "appreciated to get an amazing experience in Paris :) 22";
     }
 
+    public void mergeModify(User userJSON) {
+        setFirstName(userJSON.getFirstName());
+        setSurName(userJSON.getSurName());
+        setLocation(userJSON.getLocation());
+        setBirthDate(userJSON.getBirthDate());
+        setDescription(userJSON.getDescription());
+    }
 }

@@ -84,21 +84,29 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/member/modify")
-    public ModelAndView memberModifyPost(User u, HttpServletRequest request) {
-        LOGGER.info("Click save member modification");
+    public ModelAndView memberModifyPost(User userJSON, HttpServletRequest request) {
+        LOGGER.info("Click save member modification userId:" + userJSON.getUserId());
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        LOGGER.info("Récupération de la session de la valeur de session : " + userId);
 
-        repository.update(u);
+        ModelAndView modelView = new ModelAndView("dashboard");
+        //Vérification de non hack
+        if (userId == userJSON.getUserId()) {
+            LOGGER.info("Meme user");
+            User userDB = repository.findByUserId(userId);
+            userDB.mergeModify(userJSON);
+            repository.save(userDB);
+            LOGGER.info("User updated " + userId);
+            modelView.addObject("user", userDB);
+        } else {
+            //TODO Gérer le hack
+            return null;
+        }
 
         //SI save a fonctionné alors on retourne à l'index en disant OK
         //SINON on retourne à la meme pas en disant non OK et les champs qui posent problèmes.
 
         /* Récupération de l'objet depuis la session */
-        Integer userId = (Integer) request.getSession().getAttribute("userId");
-        LOGGER.info("Récupération de la session de la valeur de session : " + userId);
-        User userById = repository.findByUserId(userId);
-
-        ModelAndView modelView = new ModelAndView("dashboard");
-
         return modelView;
     }
 
