@@ -58,6 +58,23 @@ public class StarGuiController {
         return modelView;
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/dashboard")
+    public ModelAndView dashboardGET(HttpServletRequest request) {
+    /* Création ou récupération de la session */
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        LOGGER.info("Récupération de la session de la valeur de session : " + userId);
+        User userById = repository.findByUserId(userId);
+
+        if (null != userById) {
+            LOGGER.info(userById.toString());
+            ModelAndView modelView = new ModelAndView("MemberDisplay");
+            modelView.addObject("user", userById);
+            modelView.addObject("edit", "yes");
+            return modelView;
+        }
+        return null;
+    }
+
     /*****************
      * MEMBER
      **************************/

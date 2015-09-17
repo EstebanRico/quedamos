@@ -36,10 +36,10 @@ public class User {
     public String gender;
 
 
- /*   @Override
+    @Override
     public int hashCode() {
         return userId;
-    }*/
+    }
 
     public String getPass() {
         return pass;
