@@ -87,7 +87,7 @@ public class StarGuiController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/member/modify")
     public ModelAndView registerAdvancedGet(HttpServletRequest request) {
-        LOGGER.info("Click Register Advanced");
+        LOGGER.info("Click Register Advancedd");
 
         /* Récupération de l'objet depuis la session */
         Integer userId = (Integer) request.getSession().getAttribute("userId");
