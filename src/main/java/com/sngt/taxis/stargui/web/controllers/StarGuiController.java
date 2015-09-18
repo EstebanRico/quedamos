@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -96,6 +95,7 @@ public class StarGuiController {
 
         ModelAndView modelView = new ModelAndView("MemberModify");
         modelView.addObject("user", userById);
+        LOGGER.info("Envoie de l'user avec la description : " + userById.getDescription());
 
         return modelView;
     }
@@ -106,7 +106,7 @@ public class StarGuiController {
         Integer userId = (Integer) request.getSession().getAttribute("userId");
         LOGGER.info("Récupération de la session de la valeur de session : " + userId);
 
-        ModelAndView modelView = new ModelAndView("dashboard");
+        ModelAndView modelView = new ModelAndView("MemberDisplay");
         //Vérification de non hack
         if (userId == userJSON.getUserId()) {
             LOGGER.info("Meme user");
@@ -115,6 +115,7 @@ public class StarGuiController {
             repository.save(userDB);
             LOGGER.info("User updated " + userId);
             modelView.addObject("user", userDB);
+            modelView.addObject("edit", "yes");
         } else {
             //TODO Gérer le hack
             return null;
@@ -167,13 +168,10 @@ public class StarGuiController {
     public ModelAndView MemberSearchPost(String login, String gender, String location) {
         LOGGER.info("Click Membres Recherche Search : POST. Login:" + login + " Gender:" + gender + " Location:" + location);
 
-        User byLogin = repository.findByLogin(login);
-
-        List<User> listeUser = new ArrayList<User>();
-        listeUser.add(byLogin);
+        List<User> listUserByLoginLike = repository.findByLoginLike("%" + login + "%");
 
         ModelAndView modelView = new ModelAndView("MemberSearch");
-        modelView.addObject("listeUser", listeUser);
+        modelView.addObject("listeUser", listUserByLoginLike);
 
         return modelView;
     }
@@ -192,7 +190,7 @@ public class StarGuiController {
     @RequestMapping(method = RequestMethod.POST, value = "/event/create")
     public String EventCreatePOST() {
         LOGGER.info("Click Event Create : POST");
-        return "indexBack";
+        return "EventDisplay";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/event/search")

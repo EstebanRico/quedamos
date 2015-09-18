@@ -38,16 +38,17 @@
                         <div class="row">
                             <div class="card-content white-text">
                                 <span class="card-title">${user.login!}</span>
+
                                     <#if edit??>
                                         <a class="btn-floating btn waves-effect waves-light red"
                                            href="/member/modify"><i class="material-icons">mode_edit</i></a>
                                     </#if>
-
                             </div>
                             <div class="card-content white-text">
                                 <i class="material-icons left">wc</i>
 
                                 <p>${user.gender!}, ${user.age!} years</p>
+                                <input type="text" name="age" id="Age"/>
                             </div>
                             <div class="card-content white-text">
                                 <i class="material-icons left">location_on</i>
@@ -114,6 +115,35 @@
         $(document).ready(function () {
             $('select').material_select();
         });
+
+       /* function CalculAge() {
+            alert('Inside :');
+            var td=new Date();// Le date d'ouverture de la page (aujourd'hui)
+            var dtn=new Date(1982,9,4); // on lit la date de naissance
+            var an=dtn.substr(6,4); // l'année (les quatre premiers caractères de la chaîne à partir de 6)
+            var mois=dtn.substr(3,2);// On selectionne le mois de la date de naissance
+            var day= dtn.substr(0,2); // On selectionne la jour de la date de naissance
+            alert('Dans la zone isolée, la couleur est :'+td+ dtn);
+            var age=td.getFullYear()-an; // l'âge du patient
+            var mMois=td.getMonth()-mois; // On calcul  le mois de la date - le mois de la date de naissance
+            if(mMois < 0) // s'il est strictement inferieur a 0
+            {
+                age=age-1; // On enléve 1 ans a l'age
+            }
+            else
+            {
+                if(mMois == 0)// s'il égal 0 on est sur le même mois
+                {
+                    var mDate=td.getDay()-day;
+                    if(mDate < 0)
+                    {
+                        age=age-1;
+                    }
+                }
+            }
+            document.getElementById('Age').value=age;
+        }
+        CalculAge();*/
     </script>
 
     <script src="<@spring.url "/static/js/loginEvents.js" />"></script>

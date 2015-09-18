@@ -20,73 +20,56 @@
 
 <#include "navbar.ftl" />
 
-<#if user??>
+<h2 class="header center">Event Display</h2>
 
 <div class="row">
-    <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/modify" />">
-        <!--Attention il ne faut surtout pas oublier à ajouter les nouveaux champs dans le servlet -->
+    <form class="col s6 offset-s3" method="post" action="<@spring.url "/event/create" />">
+
         <div class="row" style="margin-top:2em">
             <div class="input-field col s6">
-                <input disable type="text" name="login" value="${user.login!}" readonly>
-                <label>Nickname</label>
+                <input type="text" name="name" value="">
+                <label>Event name</label>
             </div>
             <div class="input-field col s6">
-                <input disable type="text" name="mail" value="${user.mail!}" readonly>
-                <label>Email</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="hidden" name="userId" value="${user.userId!}" readonly>
+                <input type="text" name="type" value="">
+                <label>Event type</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field col s6">
-                <input type="text" name="firstName" value="${user.firstName!}">
-                <label>FirstName</label>
+                <input type="text" name="lieuRDV" value="">
+                <label>Event position</label>
             </div>
-            <div class="input-field col s6">
-                <input type="text" name="surName" value="${user.surName!}">
-                <label>SurName</label>
+            <div class="input-field col s3">
+                <input type="text" name="dateRDV" value="">
+                <label>Event date</label>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="location" value="${user.location!}">
-                <label>Location</label>
+            <div class="input-field col s2">
+                <input type="text" name="heureRDV" value="">
+                <label>Event time</label>
             </div>
-            <div class="input-field col s6">
-                <select name="gender">
-                    <option value="A">Any</option>
-                    <option value="F">Female</option>
-                    <option value="M">Male</option>
-                </select>
-                <label>Gender</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="date" name="birthDate" value="${user.birthDate!}">
-                <label>Date de naissance</label>
+            <div class="input-field col s1">
+                <input type="text" name="nbPlaces" value="" />
+                <label>Places</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field col s12">
-                <input name="description" type="text" value="${user.description!}"></input>
-                <label>Description:</label>
+                <textarea id="description" class="materialize-textarea"></textarea>
+                <label>Description</label>
             </div>
         </div>
 
+
         <button type="submit" class="waves-effect waves-light btn red right"
                 style="margin-top:2em">
-            Save
+            Create
         </button>
 
     </form>
 </div>
-</#if>
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

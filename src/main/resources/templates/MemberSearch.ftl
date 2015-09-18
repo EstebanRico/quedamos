@@ -60,9 +60,7 @@
             <div class="row" style="margin-top:2em">
                 <div class="input-field col s12">
                     <input type="text" name="login" value="">
-                    <label>
-                    <#--<i class="material-icons left">contacts</i>-->
-                        Login</label>
+                    <label>Login</label>
                 </div>
             </div>
 
