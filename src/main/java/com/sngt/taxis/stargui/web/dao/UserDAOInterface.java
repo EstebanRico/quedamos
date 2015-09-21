@@ -11,9 +11,14 @@ import java.util.List;
 public interface UserDAOInterface extends CrudRepository<User, Integer> {
 
     User findByUserId(Integer userId);
+
     List<User> findByUserIdLike(Integer userId);
+
     User findByLogin(String login);
+
     List<User> findByLoginLike(String login);
+
     User findByMail(String mail);
 
 }
+

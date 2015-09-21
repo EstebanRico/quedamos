@@ -1,6 +1,7 @@
 package com.sngt.taxis.stargui.web;
 
 import com.sngt.taxis.stargui.web.dao.UserDAOInterface;
+import com.sngt.taxis.stargui.web.dao.EventDAOInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

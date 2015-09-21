@@ -27,7 +27,7 @@
 
         <div class="row" style="margin-top:2em">
             <div class="input-field col s6">
-                <input type="text" name="name" value="">
+                <input type="text" name="name">
                 <label>Event name</label>
             </div>
             <div class="input-field col s6">
@@ -35,6 +35,7 @@
                 <label>Event type</label>
             </div>
         </div>
+
 
         <div class="row">
             <div class="input-field col s6">
@@ -50,17 +51,18 @@
                 <label>Event time</label>
             </div>
             <div class="input-field col s1">
-                <input type="text" name="nbPlaces" value="" />
+                <input type="text" name="nbPlaces" value="">
                 <label>Places</label>
             </div>
         </div>
 
-        <div class="row">
-            <div class="input-field col s12">
-                <textarea id="description" class="materialize-textarea"></textarea>
-                <label>Description</label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="description" class="materialize-textarea"></textarea>
+                    <label>Description</label>
+                </div>
             </div>
-        </div>
+
 
 
         <button type="submit" class="waves-effect waves-light btn red right"

@@ -1,33 +1,65 @@
 package com.sngt.taxis.stargui.web.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Created by skiss on 11/09/2015.
  */
+@Entity
 public class Event {
 
-    public int id;
-    public long dateCreation;
+    @Id
+    @GeneratedValue
+    public Integer eventId;
+
+    public Integer dateCreation;
     public String description;
-    public int nbPlaces;
+    public Integer nbPlaces;
     public String telephone;
-    public String nom;
+    public String name;
+    public String type;
     public String dateRDV;
     public String heureRDV;
-    public String lieuRDV;
 
-    public int getId() {
-        return id;
+    public String getLocation() {
+        return location;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String location;
+
+
+    public Integer getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
+    }
+
+    public void setNbPlaces(Integer nbPlaces) {
+        this.nbPlaces = nbPlaces;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public long getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(long dateCreation) {
+    public void setDateCreation(Integer dateCreation) {
         this.dateCreation = dateCreation;
     }
 
@@ -35,16 +67,12 @@ public class Event {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getNbPlaces() {
+    public Integer getNbPlaces() {
         return nbPlaces;
     }
 
-    public void setNbPlaces(int nbPlaces) {
-        this.nbPlaces = nbPlaces;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTelephone() {
@@ -55,12 +83,12 @@ public class Event {
         this.telephone = telephone;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDateRDV() {
@@ -77,14 +105,6 @@ public class Event {
 
     public void setHeureRDV(String heureRDV) {
         this.heureRDV = heureRDV;
-    }
-
-    public String getLieuRDV() {
-        return lieuRDV;
-    }
-
-    public void setLieuRDV(String lieuRDV) {
-        this.lieuRDV = lieuRDV;
     }
 
 
