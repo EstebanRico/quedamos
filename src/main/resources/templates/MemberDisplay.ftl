@@ -1,21 +1,32 @@
 <#import "/spring.ftl" as spring />
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+<#--//TODO mettre une icone au site-->
+<#--<link rel="icon" href="favicon.ico">-->
+
     <title>Quedamos</title>
+    <!-- Custom styles for this template -->
+    <link href="css/navbar.css" rel="stylesheet">
 
-    <!-- CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
-    <link rel="stylesheet" href="http://www.liedman.net/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet'/>
-    <link href="<@spring.url "/static/css/global.css" />" rel="stylesheet">
-    <link href="https://assets.couchsurfing.com/assets/new_layout/new_layout-2d93e188165c33531b9f32acac318ac1.css"
-          media="all" rel="stylesheet"/>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 
@@ -23,133 +34,58 @@
 
 <#if user??>
 
-<div class="row" style="margin-top:2em">
+<div class="row">
+    <div class="col-sm-4 col-xs-6">
+        <div class="panel panel-default">
+            <div class="panel-thumbnail">
+                <img src="http://www.sen-soyle.com/g/1guzel_fotograflar_profil_2.jpg"
+                     class="img-responsive">
+            </div>
+            <div class="panel-body">
+                <p class="lead">${user.login!}
+                    <#if edit??>
+                        <a href="/member/modify"><span class="glyphicon glyphicon-edit" aria-hidden="true"/></a>
+                    </#if>
+                </p>
 
-<#--<#if User??>-->
-<#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateurs au client-->
-    <div class="row">
-        <div class="col s6 offset-s3">
-        <#--<div class="col" style="max-width:800px" align="center">-->
-        <#--//TODO faire du proportionel-->
-            <div class="card blue-grey darken-1">
-                <div class="row">
+                <p class="lead">${user.location!}</p>
 
-                    <div class="col s6">
-                        <div class="row">
-                            <div class="card-content white-text">
-                                <span class="card-title">${user.login!}</span>
-
-                                    <#if edit??>
-                                        <a class="btn-floating btn waves-effect waves-light red"
-                                           href="/member/modify"><i class="material-icons">mode_edit</i></a>
-                                    </#if>
-                            </div>
-                            <div class="card-content white-text">
-                                <i class="material-icons left">wc</i>
-
-                                <p>${user.gender!}, ${user.age!} years</p>
-                                <input type="text" name="age" id="Age"/>
-                            </div>
-                            <div class="card-content white-text">
-                                <i class="material-icons left">location_on</i>
-
-                                <p>${user.location!}</p>
-                            </div>
-                            <div class="card-content white-text">
-                                <i class="material-icons left">history</i>
-
-                                <p>Member since ${user.inscription!}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s6">
-                        <img style="margin-top:2em;max-width:100%;height:auto;display:block"
-                             src="http://www.fairesonjardin.fr/images/inconnu.jpg?1438056051">
-                    </div>
-
-                    <div class="col s12">
-                        <div class="card-content white-text">
-                            <p>${user.description!}</p>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div class="card-action">
-                    <div class="col s12" style="margin-bottom:1em">
-                        <div class="col s6">
-                            <a href="#"><i class="material-icons left">mail</i>Send a message</a>
-                        </div>
-                        <div class="col s6">
-                            <a href="#"><i class="material-icons left">person_add</i>Add to friend list</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+    <div class="col-sm-4 col-xs-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>About me</h4></div>
+            <div class="panel-body">
+            ${user.description!}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Overview</h4></div>
+            <div class="panel-body">
+                <p>33 years</p>
 
+                <p>Male</p>
+
+                <p>Member since 2013</p>
+            </div>
+        </div>
+        <form class="form-signin" action="">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Add to friend list</button>
+        </form>
+        <form class="form-signin" action="">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Send a message</button>
+        </form>
+    </div>
+</div>
 
 <#else>
-    PAS DUTILISATEUR TROUVE
+PAS DUTILISATEUR TROUVE
 </#if>
-<#--</#if>-->
 
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.3/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
-    <script src="http://www.liedman.net/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
-    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.js'></script>
-
-
-    <script type="text/javascript">
-        window.stargui = window.stargui || {};
-        window.stargui.BASE_URL = "<@spring.url "" />";
-        $("#contents").show();
-        $(document).ready(function () {
-            $('select').material_select();
-        });
-
-       /* function CalculAge() {
-            alert('Inside :');
-            var td=new Date();// Le date d'ouverture de la page (aujourd'hui)
-            var dtn=new Date(1982,9,4); // on lit la date de naissance
-            var an=dtn.substr(6,4); // l'année (les quatre premiers caractères de la chaîne à partir de 6)
-            var mois=dtn.substr(3,2);// On selectionne le mois de la date de naissance
-            var day= dtn.substr(0,2); // On selectionne la jour de la date de naissance
-            alert('Dans la zone isolée, la couleur est :'+td+ dtn);
-            var age=td.getFullYear()-an; // l'âge du patient
-            var mMois=td.getMonth()-mois; // On calcul  le mois de la date - le mois de la date de naissance
-            if(mMois < 0) // s'il est strictement inferieur a 0
-            {
-                age=age-1; // On enléve 1 ans a l'age
-            }
-            else
-            {
-                if(mMois == 0)// s'il égal 0 on est sur le même mois
-                {
-                    var mDate=td.getDay()-day;
-                    if(mDate < 0)
-                    {
-                        age=age-1;
-                    }
-                }
-            }
-            document.getElementById('Age').value=age;
-        }
-        CalculAge();*/
-    </script>
-
-    <script src="<@spring.url "/static/js/loginEvents.js" />"></script>
-<#--<script src="<@spring.url "/static/js/mqmessages.js" />"></script>
-<script src="<@spring.url "/static/js/map.js" />"></script>
-<script src="<@spring.url "/static/js/time.js" />"></script>-->
+<script src="js/jquery.min.js"></script>
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
 </body>
 </html>
