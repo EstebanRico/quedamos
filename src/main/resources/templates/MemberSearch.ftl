@@ -11,11 +11,10 @@
 
     <title>Quedamos</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
-    <link href="/css/signin.css" rel="stylesheet">
+    <link href="/css/form.css" rel="stylesheet">
+    <link href="/css/list-group.css" rel="stylesheet">
+
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
@@ -32,82 +31,63 @@
 
 <#include "navbar.ftl" />
 
-<div class="row" style="margin-top:2em">
+
 
 <#if (listeUser)??>
-<#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateurs au client-->
-    <#list listeUser as user>
-        <#if (user.login)??>
-            <div class="row">
-                <div class="col s6 offset-s3">
-                    <ul class="collection">
-                        <a href="display/${user.login!}" style="color:darkorange;">
-                            <li class="collection-item avatar s6">
-                                <img src="http://cdn-premiere.ladmedia.fr/var/premiere/storage/images/fluctuat/societe/news/de-la-prediction-d-un-profil-psychopathe-sur-twitter-3454664/62778436-1-fre-FR/De-la-prediction-d-un-profil-psychopathe-sur-Twitter_w670_h372.jpg"
-                                     alt="" class="circle">
-                        <span class="title">
-                        ${user.login!}
-                        </span>
-
-                                <p>
+<div class="row">
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+        <#--<div class="col-xs-12 col-sm-offset-3 col-sm-6">-->
+        <div class="panel panel-default">
+            <ul class="list-group" id="contact-list">
+            <#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateurs au client-->
+                <#list listeUser as user>
+                    <#if (user.login)??>
+                        <li class="list-group-item ">
+                            <a href="/member/display/${user.login!}" style="color:darkorange;">
+                                <div class="col-xs-4 col-sm-4">
+                                    <img src="http://api.randomuser.me/portraits/men/49.jpg"
+                                         class="img-responsive img-circle"/>
+                                </div>
+                                <div class="col-xs-8 col-sm-8">
+                                    <span class="name">${user.login!}</span><br/>
                                 ${user.location!}
-                                    <br>
-                                    //TODO possibilité d'ajouter d'autres champs
-                                </p>
-                            </li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-        <#else>
-            Aucun utilisteur avec ces informations.
-        </#if>
-    </#list>
-<#else>
-
-    <div class="row">
-        <#--<form class="col s6 offset-s3" method="post" action="<@spring.url "/member/search" />">-->
-        <form class="col s6 offset-s3" method="post" action="/member/search">
-
-            <div class="row" style="margin-top:2em">
-                <div class="input-field col s12">
-                    <input type="text" name="login" value="">
-                    <label>Login</label>
-                </div>
-            </div>
-
-            <div class="row style=" margin-top:2em
-            "">
-            <div class="input-field col s12">
-                <input type="text" name="location" value="">
-                <label>
-                <#--<i class="material-icons left">location_on</i>-->
-                    Location</label>
-            </div>
-
-
-            <div class="row style=" margin-top:2em
-            ">
-            <div class="input-field col s12">
-                <select name="gender">
-                    <option value="A">Any</option>
-                    <option value="F">Female</option>
-                    <option value="M">Male</option>
-                </select>
-                <label>
-                <#--<i class="material-icons left">wc</i>-->
-                    Gender</label>
-            </div>
-
-
-            <button type="submit" id="member/search" class="waves-effect waves-light btn red right"
-                    style="margin-top:2em">
-                Search
-            </button>
-
-        </form>
+                                </div>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
+                    <#else>
+                        Aucun utilisteur avec ces informations.
+                    </#if>
+                </#list>
+            </ul>
+        </div>
     </div>
 </div>
+<#else>
+
+<#--<form class="col s6 offset-s3" method="post" action="<@spring.url "/member/search" />">-->
+<div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-info">
+        <div class="panel-heading">Member search</div>
+        <div class="panel-body">
+            <form role="form" method="post" action="/member/search">
+                <div class="form-group">
+                    <label class="control-label">Login</label>
+                    <input type="text" class="form-control" name="login" placeholder="Enter login">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Location</label>
+                    <input type="text" class="form-control" name="location" placeholder="Enter location">
+                </div>
+
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Search member</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 </#if>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
