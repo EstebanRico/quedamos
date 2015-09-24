@@ -43,10 +43,11 @@
             <div class="panel-thumbnail">
                 <img src="http://www.sen-soyle.com/g/1guzel_fotograflar_profil_2.jpg"
                      class="img-responsive">
+                <input name="pictureFile" type="file" class="input-file">
             </div>
             <div class="panel-body">
                 <p class="lead">
-                    <input type="text" class="form-control" name="login" value="${user.login!}"/>
+                   ${user.login!}
                 </p>
 
                 <p class="lead">
@@ -92,70 +93,7 @@
     </div>
 </div>
 
-<div class="row">
-    <form class="col s6 offset-s3" method="post" action="<@spring.url "/member/modify" />">
-        <!--Attention il ne faut surtout pas oublier à ajouter les nouveaux champs dans le servlet -->
-        <div class="row" style="margin-top:2em">
-            <div class="input-field col s6">
-                <input disable type="text" name="login" value="${user.login!}" readonly>
-                <label>Nickname</label>
-            </div>
-            <div class="input-field col s6">
-                <input disable type="text" name="mail" value="${user.mail!}" readonly>
-                <label>Email</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="hidden" name="userId" value="${user.userId!}" readonly>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="firstName" value="${user.firstName!}">
-                <label>FirstName</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="text" name="surName" value="${user.surName!}">
-                <label>SurName</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="location" value="${user.location!}">
-                <label>Location</label>
-            </div>
-            <div class="input-field col s6">
-                <select name="gender">
-                    <option value="A">Any</option>
-                    <option value="F">Female</option>
-                    <option value="M">Male</option>
-                </select>
-                <label>Gender</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="date" name="birthDate" value="${user.birthDate!}">
-                <label>Date de naissance</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <input name="description" type="text" value="${user.description!}"></input>
-                <label>Description:</label>
-            </div>
-        </div>
-
-        <button type="submit" class="waves-effect waves-light btn red right"
-                style="margin-top:2em">
-            Save
-        </button>
-
-    </form>
-</div>
 </#if>
 
 <!--  Scripts-->
