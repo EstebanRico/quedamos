@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -51,6 +53,7 @@ public class StarGuiController {
                 modelView.addObject("edit", "yes");
                 /* Mise en session d'une chaîne de caractères */
                 session.setAttribute("userId", byMail.getUserId());
+                session.setAttribute("user", byMail);
                 LOGGER.info("Insertion dans la session de la valeur:" + byMail.getUserId());
             } else {
                 modelView = new ModelAndView("index");
@@ -106,7 +109,7 @@ public class StarGuiController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/member/modify")
     public ModelAndView memberModifyPost(User userJSON, HttpServletRequest request) {
-        LOGGER.info("Click save member modification userId:" + userJSON.getUserId());
+        LOGGER.info("Click save member modification userId:" + userJSON.getUserId() + "  Location:" + userJSON.getLocation());
         Integer userId = (Integer) request.getSession().getAttribute("userId");
         LOGGER.info("Récupération de la session de la valeur de session : " + userId);
 
@@ -122,6 +125,7 @@ public class StarGuiController {
             modelView.addObject("edit", "yes");
         } else {
             //TODO Gérer le hack
+            LOGGER.error("Member modify retourne null");
             return null;
         }
 
@@ -139,7 +143,7 @@ public class StarGuiController {
         userRepository.save(u);
 
         //SI save a fonctionné alors on retourne à l'index en disant OK
-        //SINON on retourne à la meme pas en disant non OK et les champs qui posent problèmes.
+        //SINON on retourne à la meme page en disant non OK et les champs qui posent problèmes.
 
         ModelAndView modelView = new ModelAndView("index");
         modelView.addObject("user", u);
@@ -169,13 +173,14 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/member/search")
-    public ModelAndView MemberSearchPost(String login, String gender, String location) {
-        LOGGER.info("Click Membres Recherche Search : POST. Login:" + login + " Gender:" + gender + " Location:" + location);
+    public ModelAndView MemberSearchPost(String login, String location) {
+        LOGGER.info("Click Membres Recherche Search : POST. Login:" + login + " Location:" + location);
 
-        List<User> listUserByLoginLike = userRepository.findByLoginLike("%" + login + "%");
+        List<User> listUserByLoginLike = userRepository.findByLoginLikeAndLocationLike("%" + login + "%", "%" + location + "%");
 
         ModelAndView modelView = new ModelAndView("MemberSearch");
-        modelView.addObject("listeUser", listUserByLoginLike);
+        if (null != listUserByLoginLike)
+            modelView.addObject("listeUser", listUserByLoginLike);
 
         return modelView;
     }
@@ -192,10 +197,20 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/event/create")
-    public String EventCreatePOST(Event event) {
-        LOGGER.info("Click Event Create : POST");
+    public ModelAndView EventCreatePOST(Event event, HttpServletRequest request) {
+        LOGGER.info("Click Event Create : POST Event:" + event.toString());
+
+        event.setDateCreation(new SimpleDateFormat("dd/MM/yyy").format(new Date()));
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        event.setUserId(userId);
         eventRepository.save(event);
-        return "EventDisplay";
+
+
+        ModelAndView modelView = new ModelAndView("EventDisplay");
+        User user = userRepository.findByUserId(userId);
+        modelView.addObject("userLogin", user.getLogin());
+        modelView.addObject("event", event);
+        return modelView;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/event/search")
@@ -208,12 +223,26 @@ public class StarGuiController {
     public ModelAndView EventSearchPost(String location, String type) {
         LOGGER.info("Click Event Search : POST, location:" + location + " type:" + type);
 
-        List<Event> listeEvent = eventRepository.findByType(type);
+        List<Event> listeEvent = eventRepository.findByTypeLikeAndLocationLike("%" + type + "%", "%" + location + "%");
 
         ModelAndView modelView = new ModelAndView("EventSearch");
-        modelView.addObject("listeEvent", listeEvent);
+        if (null != listeEvent)
+            modelView.addObject("listeEvent", listeEvent);
 
         LOGGER.info("Click Event Search : POST, retourne " + listeEvent.size());
+        return modelView;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/event/display" + "/{eventId}")
+    public ModelAndView eventDisplayGet(@PathVariable Integer eventId) {
+        LOGGER.info("Event Display : GET of the event with eventName=" + eventId);
+
+        Event eventById = eventRepository.findByEventId(eventId);
+        LOGGER.info(eventById.toString());
+
+        ModelAndView modelView = new ModelAndView("EventDisplay");
+        modelView.addObject("event", eventById);
+
         return modelView;
     }
 

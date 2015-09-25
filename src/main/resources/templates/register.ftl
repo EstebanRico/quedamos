@@ -32,21 +32,6 @@
                 <label>Email</label>
             </div>
         </div>
-    <#if advanced??>
-        <div class="input-field" style="display:none">
-            <input value="yes" type="text" name="advanced">
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="text" name="firstName" value="">
-                <label>FirstName</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="text" name="surName" value="">
-                <label>SurName</label>
-            </div>
-        </div>
-    </#if>
 
         <div class="row">
             <div class="input-field col s6">
@@ -72,27 +57,6 @@
                 <label>Gender</label>
             </div>
         </div>
-
-    <#if advanced??>
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="date" name="birthDate" value="">
-            <#--<label>BirthDate</label>-->
-            </div>
-            <#--<div class="input-field col s6">
-                <input type="text" name="location" value="">
-                <label>????</label>
-            </div>-->
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <textarea id="description" class="materialize-textarea"></textarea>
-                <label>Description</label>
-            </div>
-        </div>
-
-    </#if>
 
         <button type="submit" class="waves-effect waves-light btn red right"
                 style="margin-top:2em">

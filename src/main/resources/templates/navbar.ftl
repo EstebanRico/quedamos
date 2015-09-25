@@ -1,22 +1,3 @@
-<#--
-<ul id="sorties" class="dropdown-content">
-    <li><a href="<@spring.url "/event/create" />">Creer</a></li>
-    <li><a href="<@spring.url "/event/search" />">Chercher</a></li>
-</ul>
-
-<ul id="membres" class="dropdown-content">
-    <li><a href="<@spring.url "/member/search" />">Chercher</a></li>
-</ul>
-
-<nav>
-    <div class="nav-wrapper">
-        <ul class="left">
-            <li><a href="<@spring.url "/dashboard" />">Mon profil</a></li>
-            <li><a class="dropdown-button" href="#!" data-activates="membres">Les Membres<i class="material-icons right">arrow_drop_down</i></a></li>
-            <li><a class="dropdown-button" href="#!" data-activates="sorties">Les Sorties<i class="material-icons right">arrow_drop_down</i></a></li>
-        </ul>
-    </div>
-</nav>-->
 <body>
 
 <div class="container">
@@ -49,13 +30,13 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Les sorties <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Créer</a></li>
-                            <li><a href="#">Chercher</a></li>
+                            <li><a href="/event/create">Créer</a></li>
+                            <li><a href="/event/search">Chercher</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="../navbar-static-top/">Contact Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->

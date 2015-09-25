@@ -20,6 +20,6 @@ public interface EventDAOInterface extends CrudRepository<Event, Integer> {
 
     List<Event> findByType(String type);
 
-
+    List<Event> findByTypeLikeAndLocationLike(String type, String location);
 }
 

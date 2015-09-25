@@ -1,28 +1,53 @@
 package com.sngt.taxis.stargui.web.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by skiss on 11/09/2015.
  */
 @Entity
 public class Event {
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventId=" + eventId +
+                ", dateCreation=" + dateCreation +
+                ", description='" + description + '\'' +
+                ", nbPlaces=" + nbPlaces +
+                ", telephone='" + telephone + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", dateRDV='" + dateRDV + '\'' +
+                ", heureRDV='" + heureRDV + '\'' +
+                ", location='" + location + '\'' +
+                '}';
+    }
 
     @Id
     @GeneratedValue
     public Integer eventId;
 
-    public Integer dateCreation;
+    private Integer userId;
+
+    public String dateCreation;
     public String description;
     public Integer nbPlaces;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String telephone;
     public String name;
     public String type;
     public String dateRDV;
     public String heureRDV;
+    public String location;
+
 
     public String getLocation() {
         return location;
@@ -31,8 +56,6 @@ public class Event {
     public void setLocation(String location) {
         this.location = location;
     }
-
-    public String location;
 
 
     public Integer getEventId() {
@@ -55,11 +78,11 @@ public class Event {
         this.type = type;
     }
 
-    public long getDateCreation() {
+    public String getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Integer dateCreation) {
+    public void setDateCreation(String dateCreation) {
         this.dateCreation = dateCreation;
     }
 
@@ -106,7 +129,6 @@ public class Event {
     public void setHeureRDV(String heureRDV) {
         this.heureRDV = heureRDV;
     }
-
 
 
 }

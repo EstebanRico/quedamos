@@ -20,5 +20,6 @@ public interface UserDAOInterface extends CrudRepository<User, Integer> {
 
     User findByMail(String mail);
 
+    List<User> findByLoginLikeAndLocationLike(String login, String location);
 }
 

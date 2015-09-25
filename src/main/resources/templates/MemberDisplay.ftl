@@ -35,7 +35,7 @@
 <#if user??>
 
 <div class="row">
-    <div class="col-sm-4 col-xs-6">
+    <div class="col-sm-12 col-xs-12 col-md-4 col-md-offset-2">
         <div class="panel panel-default">
             <div class="panel-thumbnail">
                 <img src="http://www.sen-soyle.com/g/1guzel_fotograflar_profil_2.jpg"
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-4 col-xs-6">
+    <div class="col-sm-12 col-xs-12 col-md-4 ">
         <div class="panel panel-default">
             <div class="panel-heading"><h4>About me</h4></div>
             <div class="panel-body">

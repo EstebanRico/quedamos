@@ -12,8 +12,12 @@
     <title>Quedamos</title>
 
     <!-- Custom styles for this template -->
+    <link href="/css/navbar.css" rel="stylesheet">
     <link href="/css/form.css" rel="stylesheet">
     <link href="/css/list-group.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
 
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -27,7 +31,6 @@
     <script src="/js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
 
 <#include "navbar.ftl" />
 
@@ -90,9 +93,9 @@
 
 </#if>
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/js/jquery.min.js"></script>
 <script src="/js/ie10-viewport-bug-workaround.js"></script>
-
+<script src="/js/bootstrap.min.js"></script>
 
 </body>
 </html>

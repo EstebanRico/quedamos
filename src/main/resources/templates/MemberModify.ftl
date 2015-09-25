@@ -36,63 +36,68 @@
 
 <#if user??>
 
-
-<div class="row">
-    <div class="col-sm-4 col-xs-6">
-        <div class="panel panel-default">
-            <div class="panel-thumbnail">
-                <img src="http://www.sen-soyle.com/g/1guzel_fotograflar_profil_2.jpg"
-                     class="img-responsive">
-                <input name="pictureFile" type="file" class="input-file">
-            </div>
-            <div class="panel-body">
-                <p class="lead">
-                   ${user.login!}
-                </p>
-
-                <p class="lead">
-                    <input type="text" class="form-control" name="location" value="${user.location!}"/>
-                </p>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4 col-xs-6">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>About me</h4></div>
-            <div class="panel-body">
-                <textarea class="form-control" rows="8" name="description">${user.description!}</textarea>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Overview</h4></div>
-            <div class="panel-body">
-
-                <p><input type="date" class="form-control" name="birthDate" value="${user.birthDate!}"/></p>
-
-                <p>
-
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Gender
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Female</a></li>
-                        <li><a href="#">Male</a></li>
-                    </ul>
+<form method="post" action="/member/modify">
+    <div class="row">
+        <div class="col-sm-4 col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-thumbnail">
+                    <img src="http://www.sen-soyle.com/g/1guzel_fotograflar_profil_2.jpg"
+                         class="img-responsive">
+                    <input name="pictureFile" type="file" class="input-file">
                 </div>
-                </p>
+                <div class="panel-body">
+                    <p class="lead">
+                    ${user.login!}
+                    </p>
 
-                <p>Member since 2013</p>
+                    <p class="lead">
+                        <input type="text" class="form-control" name="location" value="${user.location!}"/>
+                    </p>
 
+                </div>
             </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
-    </div>
-</div>
+        <div class="col-sm-4 col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>About me</h4></div>
+                <div class="panel-body">
+                    <textarea class="form-control" rows="8" name="description">${user.description!}</textarea>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Overview</h4></div>
+                <div class="panel-body">
 
+                    <p><input type="date" class="form-control" name="birthDate" value="${user.birthDate!}"/></p>
+
+                    <p>
+
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Gender
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>Female</li>
+                            <li>Male</li>
+                        </ul>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <input type="hidden" name="userId" value="${user.userId!}" readonly>
+                    </div>
+
+                    </p>
+
+                    <p>Member since 2013</p>
+
+                </div>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+        </div>
+    </div>
+</form>
 
 </#if>
 
