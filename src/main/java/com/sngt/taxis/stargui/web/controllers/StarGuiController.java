@@ -203,14 +203,10 @@ public class StarGuiController {
         event.setDateCreation(new SimpleDateFormat("dd/MM/yyy").format(new Date()));
         Integer userId = (Integer) request.getSession().getAttribute("userId");
         event.setUserId(userId);
-        eventRepository.save(event);
 
+        Event eventSaved = eventRepository.save(event);
 
-        ModelAndView modelView = new ModelAndView("EventDisplay");
-        User user = userRepository.findByUserId(userId);
-        modelView.addObject("userLogin", user.getLogin());
-        modelView.addObject("event", event);
-        return modelView;
+        return eventDisplayGet(eventSaved.getEventId(), request);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/event/search")
@@ -234,16 +230,40 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/event/display" + "/{eventId}")
-    public ModelAndView eventDisplayGet(@PathVariable Integer eventId) {
-        LOGGER.info("Event Display : GET of the event with eventName=" + eventId);
+    public ModelAndView eventDisplayGet(@PathVariable Integer eventId, HttpServletRequest request) {
 
+        LOGGER.info("Event Display : GET of the event with eventName=" + eventId);
         Event eventById = eventRepository.findByEventId(eventId);
-        LOGGER.info(eventById.toString());
+        LOGGER.info("Description de l'évent : " + eventById.toString());
 
         ModelAndView modelView = new ModelAndView("EventDisplay");
         modelView.addObject("event", eventById);
 
+        User userWhoCreate = userRepository.findByUserId(eventById.getUserId());
+        modelView.addObject("userLogin", userWhoCreate.getLogin());
+
+        Integer userIdView = (Integer) request.getSession().getAttribute("userId");
+        if (userIdView != userWhoCreate.getUserId())
+            //TODO gérer une liste de participant si cet utilisateur c'est déjà inscrit
+            modelView.addObject("inscribirse", "true");
+
         return modelView;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/event/inscribirse" + "/{eventId}")
+    public ModelAndView eventInscribirPost(@PathVariable Integer eventId, HttpServletRequest request) {
+
+        LOGGER.info("Event Display : GET of the event with eventName=" + eventId);
+        Event eventById = eventRepository.findByEventId(eventId);
+        LOGGER.info("Description de l'évent : " + eventById.toString());
+
+        Integer userIdView = (Integer) request.getSession().getAttribute("userId");
+        //TODO gérer une liste de participant
+        // eventById.setParticipant(userIdView);
+
+        Event eventSaved = eventRepository.save(eventById);
+
+        return eventDisplayGet(eventSaved.getEventId(), request);
     }
 
 }

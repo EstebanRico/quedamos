@@ -1,6 +1,6 @@
 <#import "/spring.ftl" as spring />
 <html lang="en">
-<head>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,14 +29,14 @@
     <script src="/js/respond.min.js"></script>
     <![endif]-->
 </head>
-</head>
+
 <body>
 
 <#include "navbar.ftl" />
 
 <#if user??>
 
-<form method="post" action="/member/modify">
+<form method="post" action="/member/modify" enctype="multipart/form-data">
     <div class="row">
         <div class="col-sm-4 col-xs-6">
             <div class="panel panel-default">

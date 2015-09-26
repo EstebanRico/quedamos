@@ -35,7 +35,7 @@
 
 <div class="col-sm-12 col-xs-12 col-md-6 col-md-offset-3">
 
-    <form class="form-signin" action="">
+    <form class="form-signin"  method="post" action="/event/inscribirse/${event.eventId!}">
         <div class="panel panel-default">
             <div class="panel-heading"><h4>${event.name!}</h4></div>
             <div class="panel-body">
@@ -56,7 +56,9 @@
                 <p>${event.description!}</p>
             </div>
         </div>
+    <#if inscribirse??>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Inscribirse</button>
+    </#if>
     </form>
 </div>
 
