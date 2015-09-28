@@ -63,10 +63,9 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h4>Overview</h4></div>
             <div class="panel-body">
-                <p>${user.birthDate!}</p>
-                <input type="text" id="Age"><br>
+                <p id="Age"></p>
+                <p>${birthDate!}</p>
                 <p>Male</p>
-
                 <p>Member since 2013</p>
             </div>
         </div>
@@ -83,24 +82,26 @@
 PAS DUTILISATEUR TROUVE
 </#if>
 
+<#--
 <script>
     function calculAge(strDate) {
         strDate = strDate.split('-');
-        var birthMonth = strDate[1]-1, // (les mois commencent à 0)
+        var birthMonth = strDate[1] - 1, // (les mois commencent à 0)
                 birthDay = strDate[2],
                 now = new Date(),
                 nowMonth = now.getMonth(),
                 nowDay = now.getDate(),
-                age = now.getFullYear()-strDate[0];
+                age = now.getFullYear() - strDate[0];
 
         // Si la date d'anniversaire n'est pas encore passée, on corrige l'age
-        if(nowMonth<birthMonth || nowMonth==birthMonth && nowDay<birthDay) {
+        if (nowMonth < birthMonth || nowMonth == birthMonth && nowDay < birthDay) {
             age--;
         }
         return age;
     }
-    document.getElementById('Age').value=calculAge('1982-09-04');
+    document.getElementById('Age').value = calculAge("${user.birthDate}");
 </script>
+-->
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/ie10-viewport-bug-workaround.js"></script>

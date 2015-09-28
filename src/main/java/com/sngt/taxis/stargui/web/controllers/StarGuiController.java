@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -76,9 +78,27 @@ public class StarGuiController {
             ModelAndView modelView = new ModelAndView("MemberDisplay");
             modelView.addObject("user", userById);
             modelView.addObject("edit", "yes");
+            modelView.addObject("birthDate", calculAge(userById.getBirthDate()));
             return modelView;
         }
         return null;
+    }
+
+    //TODO a mettre dans un Singleton de type Util.
+    private Object calculAge(String birthDate) {
+        Calendar curr = Calendar.getInstance();
+        Calendar birth = Calendar.getInstance();
+        try {
+            birth.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int yeardiff = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+        curr.add(Calendar.YEAR, -yeardiff);
+        if (birth.after(curr)) {
+            yeardiff = yeardiff - 1;
+        }
+        return yeardiff;
     }
 
     /*****************
