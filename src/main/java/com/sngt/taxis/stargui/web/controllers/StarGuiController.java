@@ -86,6 +86,7 @@ public class StarGuiController {
 
     //TODO a mettre dans un Singleton de type Util.
     private Object calculAge(String birthDate) {
+
         Calendar curr = Calendar.getInstance();
         Calendar birth = Calendar.getInstance();
         try {
@@ -98,6 +99,9 @@ public class StarGuiController {
         if (birth.after(curr)) {
             yeardiff = yeardiff - 1;
         }
+
+        LOGGER.info("Entré:"+birthDate+ " Sortie:"+yeardiff);
+
         return yeardiff;
     }
 
@@ -106,9 +110,13 @@ public class StarGuiController {
      **************************/
 
     @RequestMapping(method = RequestMethod.GET, value = "/member/register")
-    public String registerGet(HttpServletResponse response) {
+    public ModelAndView registerGet(HttpServletResponse response) {
         LOGGER.info("Click Register");
-        return "register";
+        ModelAndView modelView = new ModelAndView("MemberModify");
+        modelView.addObject("register", "yes");
+        User user = new User();
+        modelView.addObject("user", user);
+        return modelView;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/member/modify")
@@ -129,6 +137,7 @@ public class StarGuiController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/member/modify")
     public ModelAndView memberModifyPost(User userJSON, HttpServletRequest request) {
+
         LOGGER.info("Click save member modification userId:" + userJSON.getUserId() + "  Location:" + userJSON.getLocation());
         Integer userId = (Integer) request.getSession().getAttribute("userId");
         LOGGER.info("Récupération de la session de la valeur de session : " + userId);
@@ -136,13 +145,24 @@ public class StarGuiController {
         ModelAndView modelView = new ModelAndView("MemberDisplay");
         //Vérification de non hack
         if (userId == userJSON.getUserId()) {
+
             LOGGER.info("Meme user");
             User userDB = userRepository.findByUserId(userId);
-            userDB.mergeModify(userJSON);
-            userRepository.save(userDB);
-            LOGGER.info("User updated " + userId);
-            modelView.addObject("user", userDB);
+
+            if (null != userDB){
+                //Si l'utilisateur existe déjà alors on merge avant de sauvagarder
+                userDB.mergeModify(userJSON);
+                userRepository.save(userDB);
+                modelView.addObject("user", userDB);
+                LOGGER.info("User updated " + userDB.getUserId());
+            }else{
+                //Sinon on save l'utilisateur récupéré
+                userRepository.save(userJSON);
+                modelView.addObject("user", userJSON);
+                LOGGER.info("User created " + userJSON.getUserId());
+            }
             modelView.addObject("edit", "yes");
+
         } else {
             //TODO Gérer le hack
             LOGGER.error("Member modify retourne null");

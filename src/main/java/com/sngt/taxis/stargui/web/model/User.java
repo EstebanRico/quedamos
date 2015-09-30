@@ -28,6 +28,8 @@ public class User {
     public String mail;
 
     public String location;
+    public String region;
+    public String country;
     public String description;
     public String age;
     public String inscription;
@@ -35,6 +37,21 @@ public class User {
     public String pass;
     public String gender;
 
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     @Override
     public int hashCode() {
