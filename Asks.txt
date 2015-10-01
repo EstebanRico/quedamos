@@ -1,6 +1,2 @@
-Comment gérer la liste des gens inscrits à une activité? List ne peut pas être mis en base.
-
-Comment JS de calcul d'age peut modifier une zone qui ne soit pas un input text?
-
 Comment envoyer un fichier?
 
