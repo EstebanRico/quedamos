@@ -1,6 +1,9 @@
 package com.sngt.taxis.stargui.web.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
@@ -22,7 +25,16 @@ public class Event {
     public String dateRDV;
     public String heureRDV;
     public String location;
-    //public List<Integer> userInscrito;
+    @OneToMany
+    public List<User> listUserEnroll;
+
+    public List<User> getListUserEnroll() {
+        return listUserEnroll;
+    }
+
+    public void setListUserEnroll(List<User> listUserEnroll) {
+        this.listUserEnroll = listUserEnroll;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -48,10 +60,6 @@ public class Event {
         this.eventId = eventId;
     }
 
-    public void setNbPlaces(Integer nbPlaces) {
-        this.nbPlaces = nbPlaces;
-    }
-
     public String getType() {
         return type;
     }
@@ -72,12 +80,16 @@ public class Event {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Integer getNbPlaces() {
         return nbPlaces;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNbPlaces(Integer nbPlaces) {
+        this.nbPlaces = nbPlaces;
     }
 
     public String getTelephone() {
@@ -130,4 +142,7 @@ public class Event {
     }
 
 
+    public void setParticipant(User userIdView) {
+        listUserEnroll.add(userIdView);
+    }
 }

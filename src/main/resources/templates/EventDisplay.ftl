@@ -39,6 +39,7 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h4>${event.name!}</h4></div>
             <div class="panel-body">
+
                 <p><strong>Esta salida es </strong>${event.type!}</p>
 
                 <p><strong>Su localizacion sera </strong>${event.location!}</p>
@@ -54,6 +55,7 @@
                 <p>${event.heureRDV!}</p>
 
                 <p>${event.description!}</p>
+
             </div>
         </div>
     <#if inscribirse??>

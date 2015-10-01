@@ -55,35 +55,34 @@
                             <p class="lead">
                             <#if register??>
                                 <input type="text" class="form-control" name="login" placeholder="Enter login"/>
+                                <input type="text" class="form-control" name="mail" placeholder="Enter email"/>
+                                <input type="text" class="form-control" name="pass" placeholder="Enter password"/>
+                                <input type="text" class="form-control" name="confpass" placeholder="Confirm password"/>
                             <#else>
                             ${user.login!}
                             </#if>
                             </p>
 
-                            <p class="lead">
-                            <#if register??>
-                            <#--<input type="text" class="form-control" name="direccion"
-                                   placeholder="Enter direccion"/>-->
-                                <input id="user_input_autocomplete_address" name="user_input_autocomplete_address"
-                                       class="form-control" placeholder="Start typing your address...">
-                            <#else>
-                                <input type="text" class="form-control" name="direccion"
-                                       value="${user.location!} ${user.region!} ${user.country!}"/>
-                            </#if>
-                            </p>
+                            <input id="user_input_autocomplete_address" name="user_input_autocomplete_address"
+                                   class="form-control" placeholder="Start typing your address...">
 
                             <p class="lead">
-                                <input type="hidden" class="form-control" name="location" readonly
+                                <input type="text" class="form-control" id="location" name="location" readonly
                                        value="${user.location!}"/>
                             </p>
 
                             <p class="lead">
-                                <input type="hidden" class="form-control" name="region" readonly
+                                <input type="text" class="form-control" id="departement" name="departement" readonly
+                                       value="${user.location!}"/>
+                            </p>
+
+                            <p class="lead">
+                                <input type="text" class="form-control" id="region" name="region" readonly
                                        value="${user.region!}"/>
                             </p>
 
                             <p class="lead">
-                                <input type="hidden" class="form-control" name="country" readonly
+                                <input type="text" class="form-control" id="country" name="country" readonly
                                        value="${user.country!}"/>
                             </p>
 
@@ -108,18 +107,11 @@
                                   value="${user.birthDate!}"/>
                         </p>
 
-                        <p>
-
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Gender
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li>Female</li>
-                                <li>Male</li>
-                            </ul>
+                        <div class="form-group">
+                            <select class="select" title='Choose one of the following...'>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
                         </div>
 
                     <#if !register??>

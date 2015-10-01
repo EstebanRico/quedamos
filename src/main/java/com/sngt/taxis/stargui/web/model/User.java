@@ -28,6 +28,7 @@ public class User {
     public String mail;
 
     public String location;
+    public String departement;
     public String region;
     public String country;
     public String description;
@@ -36,6 +37,15 @@ public class User {
     public String picture;
     public String pass;
     public String gender;
+
+
+    public String getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(String departement) {
+        this.departement = departement;
+    }
 
     public String getRegion() {
         return region;

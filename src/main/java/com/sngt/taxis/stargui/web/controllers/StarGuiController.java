@@ -36,7 +36,6 @@ public class StarGuiController {
     /*****************
      * DASHBOARD
      **************************/
-
     @RequestMapping(method = RequestMethod.POST, value = "/dashboard")
     public ModelAndView dashboard(String mail, String pass, HttpServletRequest request) {
         LOGGER.info("Click Identify Login Mail:" + mail + " Pass:" + pass);
@@ -108,7 +107,6 @@ public class StarGuiController {
     /*****************
      * MEMBER
      **************************/
-
     @RequestMapping(method = RequestMethod.GET, value = "/member/register")
     public ModelAndView registerGet(HttpServletResponse response) {
         LOGGER.info("Click Register");
@@ -192,7 +190,6 @@ public class StarGuiController {
         return modelView;
     }
 
-
     @RequestMapping(method = RequestMethod.GET, value = "/member/display" + "/{login}")
     public ModelAndView memberProfileDisplay(@PathVariable String login) {
         LOGGER.info("Member Profil Display : GET of the member with nickname=" + login);
@@ -202,6 +199,7 @@ public class StarGuiController {
 
         ModelAndView modelView = new ModelAndView("MemberDisplay");
         modelView.addObject("user", byLogin);
+        modelView.addObject("birthDate", calculAge(byLogin.getBirthDate()));
 
         return modelView;
     }
@@ -287,6 +285,9 @@ public class StarGuiController {
             //TODO gérer une liste de participant si cet utilisateur c'est déjà inscrit
             modelView.addObject("inscribirse", "true");
 
+        for (User u : eventById.getListUserEnroll())
+            LOGGER.info("Utilisateur enrollé : "+u.getUserId());
+
         return modelView;
     }
 
@@ -298,8 +299,9 @@ public class StarGuiController {
         LOGGER.info("Description de l'évent : " + eventById.toString());
 
         Integer userIdView = (Integer) request.getSession().getAttribute("userId");
+        User userWhoEnroll = userRepository.findByUserId(userIdView);
         //TODO gérer une liste de participant
-        // eventById.setParticipant(userIdView);
+        eventById.setParticipant(userWhoEnroll);
 
         Event eventSaved = eventRepository.save(eventById);
 
