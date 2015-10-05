@@ -2,6 +2,7 @@ package com.sngt.taxis.stargui.web.controllers;
 
 import com.sngt.taxis.stargui.web.dao.EventDAOInterface;
 import com.sngt.taxis.stargui.web.dao.UserDAOInterface;
+import com.sngt.taxis.stargui.web.model.Discussion;
 import com.sngt.taxis.stargui.web.model.Event;
 import com.sngt.taxis.stargui.web.model.User;
 import org.slf4j.Logger;
@@ -178,12 +179,15 @@ public class StarGuiController {
     public ModelAndView registerPost(User u) {
         LOGGER.info("Click Register.");
 
-        userRepository.save(u);
+        User userSaved = userRepository.save(u);
+
+        if (userSaved == null)
+            LOGGER.info("La sauvegarde de l'utilsateur n'a pas marché.");
 
         //SI save a fonctionné alors on retourne à l'index en disant OK
         //SINON on retourne à la meme page en disant non OK et les champs qui posent problèmes.
 
-        ModelAndView modelView = new ModelAndView("index");
+        ModelAndView modelView = new ModelAndView("MemberDisplay");
         modelView.addObject("user", u);
         modelView.addObject("response", "yes");
 
@@ -313,21 +317,21 @@ public class StarGuiController {
     /************************
      * MailBox
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/mail/mailbox" + "/{eventId}")
-    public ModelAndView eventMailBoxGET(@PathVariable Integer eventId, HttpServletRequest request) {
+    @RequestMapping(method = RequestMethod.GET, value = "/mail/mailbox")
+    public ModelAndView eventMailBoxGET(HttpServletRequest request) {
 
-        LOGGER.info("Event Display : GET of the event with eventName=" + eventId);
-        Event eventById = eventRepository.findByEventId(eventId);
-        LOGGER.info("Description de l'évent : " + eventById.toString());
+        LOGGER.info("Enter in mailBox display");
 
-        Integer userIdView = (Integer) request.getSession().getAttribute("userId");
-        User userWhoEnroll = userRepository.findByUserId(userIdView);
-        //TODO gérer une liste de participant
-        eventById.setParticipant(userWhoEnroll);
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
 
-        Event eventSaved = eventRepository.save(eventById);
+        User user = userRepository.findByUserId(userId);
 
-        return eventDisplayGet(eventSaved.getEventId(), request);
+        List<Discussion> listDiscussion = user.getListeDiscussion();
+
+        ModelAndView modelView = new ModelAndView("MailBox");
+        modelView.addObject("listDiscussion", listDiscussion);
+
+        return modelView;
     }
 
 

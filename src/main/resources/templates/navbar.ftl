@@ -34,10 +34,7 @@
                             <li><a href="/event/search">Chercher</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="/mail/mailbox" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Ma messagerie <span class="caret"></span></a>
-                    </li>
+                    <li><a href="/mail/mailbox">Ma messagerie</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Contact Us</a></li>

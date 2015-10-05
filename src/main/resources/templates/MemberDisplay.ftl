@@ -64,17 +64,30 @@
             <div class="panel-heading"><h4>Overview</h4></div>
             <div class="panel-body">
                 <p id="Age"></p>
+
                 <p>${birthDate!}</p>
+
                 <p>Male</p>
+
                 <p>Member since 2013</p>
             </div>
         </div>
-        <form class="form-signin" action="">
+        <#if !edit??>
+            <p> <span onclick="alert('Hello !');">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Add to friend list</button>
-        </form>
-        <form class="form-signin" action="">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Send a message</button>
-        </form>
+        </span></p>
+            <p><span onclick="toto()">
+            <button id="buttonSend" class="btn btn-lg btn-primary btn-block" type="submit">Send a message</button>
+        </span></p>
+
+        <span id="msg" style="display:none"><p>
+            <form method="post" action="mail/send">
+                <textarea rows="4" class="form-control" name="msg" placeholder="Enter message"></textarea>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Send message</button>
+            </form>
+            </p>
+        </span>
+        </#if>
     </div>
 </div>
 
@@ -82,26 +95,16 @@
 PAS DUTILISATEUR TROUVE
 </#if>
 
-<#--
 <script>
-    function calculAge(strDate) {
-        strDate = strDate.split('-');
-        var birthMonth = strDate[1] - 1, // (les mois commencent à 0)
-                birthDay = strDate[2],
-                now = new Date(),
-                nowMonth = now.getMonth(),
-                nowDay = now.getDate(),
-                age = now.getFullYear() - strDate[0];
+    function toto() {
+        var buttonSend = document.getElementById('buttonSend');
+        buttonSend.style.display = 'none';
 
-        // Si la date d'anniversaire n'est pas encore passée, on corrige l'age
-        if (nowMonth < birthMonth || nowMonth == birthMonth && nowDay < birthDay) {
-            age--;
-        }
-        return age;
+        var msg = document.getElementById('msg');
+        msg.style.display = 'block';
     }
-    document.getElementById('Age').value = calculAge("${user.birthDate}");
+
 </script>
--->
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/ie10-viewport-bug-workaround.js"></script>

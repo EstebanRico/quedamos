@@ -1,9 +1,6 @@
 package com.sngt.taxis.stargui.web.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -25,8 +22,21 @@ public class Event {
     public String dateRDV;
     public String heureRDV;
     public String location;
+
     @OneToMany
     public List<User> listUserEnroll;
+
+    @OneToOne
+    public Discussion discussion;
+
+    public Discussion getDiscussion() {
+        return discussion;
+    }
+
+    public void setDiscussion(Discussion discussion) {
+        this.discussion = discussion;
+    }
+
 
     public List<User> getListUserEnroll() {
         return listUserEnroll;

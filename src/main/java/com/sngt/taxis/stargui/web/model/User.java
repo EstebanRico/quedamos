@@ -1,9 +1,7 @@
 package com.sngt.taxis.stargui.web.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by skiss on 08/09/2015.
@@ -38,6 +36,16 @@ public class User {
     public String pass;
     public String gender;
 
+    @OneToMany
+    public List<Discussion> listeDiscussion;
+
+    public List<Discussion> getListeDiscussion() {
+        return listeDiscussion;
+    }
+
+    public void setListeDiscussion(List<Discussion> listeDiscussion) {
+        this.listeDiscussion = listeDiscussion;
+    }
 
     public String getDepartement() {
         return departement;

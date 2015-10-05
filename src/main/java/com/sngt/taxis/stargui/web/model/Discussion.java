@@ -1,9 +1,6 @@
 package com.sngt.taxis.stargui.web.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -16,9 +13,48 @@ public class Discussion {
     @GeneratedValue
     public Integer discId;
 
+    public Integer getDiscId() {
+        return discId;
+    }
+
+    public void setDiscId(Integer discId) {
+        this.discId = discId;
+    }
+
+    public String getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public String getHeureCreation() {
+        return heureCreation;
+    }
+
+    public void setHeureCreation(String heureCreation) {
+        this.heureCreation = heureCreation;
+    }
+
+    public String getSujet() {
+        return sujet;
+    }
+
+    public void setSujet(String sujet) {
+        this.sujet = sujet;
+    }
+
+    public List<Mail> getListeMail() {
+        return listeMail;
+    }
+
+    public void setListeMail(List<Mail> listeMail) {
+        this.listeMail = listeMail;
+    }
+
     public String dateCreation;
     public String heureCreation;
-    public String typeDiscussion; /*E:Event et M:Member*/
     public String sujet;
 
     @OneToMany
