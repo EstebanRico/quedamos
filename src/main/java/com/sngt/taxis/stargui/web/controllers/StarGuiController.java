@@ -99,7 +99,7 @@ public class StarGuiController {
             yeardiff = yeardiff - 1;
         }
 
-        LOGGER.info("Entré:"+birthDate+ " Sortie:"+yeardiff);
+        LOGGER.info("Entré:" + birthDate + " Sortie:" + yeardiff);
 
         return yeardiff;
     }
@@ -147,13 +147,13 @@ public class StarGuiController {
             LOGGER.info("Meme user");
             User userDB = userRepository.findByUserId(userId);
 
-            if (null != userDB){
+            if (null != userDB) {
                 //Si l'utilisateur existe déjà alors on merge avant de sauvagarder
                 userDB.mergeModify(userJSON);
                 userRepository.save(userDB);
                 modelView.addObject("user", userDB);
                 LOGGER.info("User updated " + userDB.getUserId());
-            }else{
+            } else {
                 //Sinon on save l'utilisateur récupéré
                 userRepository.save(userJSON);
                 modelView.addObject("user", userJSON);
@@ -270,9 +270,9 @@ public class StarGuiController {
     @RequestMapping(method = RequestMethod.GET, value = "/event/display" + "/{eventId}")
     public ModelAndView eventDisplayGet(@PathVariable Integer eventId, HttpServletRequest request) {
 
-        LOGGER.info("Event Display : GET of the event with eventName=" + eventId);
+        LOGGER.info("Event Display : GET of the event with eventId=" + eventId);
         Event eventById = eventRepository.findByEventId(eventId);
-        LOGGER.info("Description de l'évent : " + eventById.toString());
+        LOGGER.info("Description de l'event : " + eventById.toString());
 
         ModelAndView modelView = new ModelAndView("EventDisplay");
         modelView.addObject("event", eventById);
@@ -285,8 +285,9 @@ public class StarGuiController {
             //TODO gérer une liste de participant si cet utilisateur c'est déjà inscrit
             modelView.addObject("inscribirse", "true");
 
-        for (User u : eventById.getListUserEnroll())
-            LOGGER.info("Utilisateur enrollé : "+u.getUserId());
+        if (null != eventById.getListUserEnroll())
+            for (User u : eventById.getListUserEnroll())
+                LOGGER.info("Utilisateur enrollé : " + u.getUserId());
 
         return modelView;
     }
@@ -307,5 +308,27 @@ public class StarGuiController {
 
         return eventDisplayGet(eventSaved.getEventId(), request);
     }
+
+
+    /************************
+     * MailBox
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/mail/mailbox" + "/{eventId}")
+    public ModelAndView eventMailBoxGET(@PathVariable Integer eventId, HttpServletRequest request) {
+
+        LOGGER.info("Event Display : GET of the event with eventName=" + eventId);
+        Event eventById = eventRepository.findByEventId(eventId);
+        LOGGER.info("Description de l'évent : " + eventById.toString());
+
+        Integer userIdView = (Integer) request.getSession().getAttribute("userId");
+        User userWhoEnroll = userRepository.findByUserId(userIdView);
+        //TODO gérer une liste de participant
+        eventById.setParticipant(userWhoEnroll);
+
+        Event eventSaved = eventRepository.save(eventById);
+
+        return eventDisplayGet(eventSaved.getEventId(), request);
+    }
+
 
 }

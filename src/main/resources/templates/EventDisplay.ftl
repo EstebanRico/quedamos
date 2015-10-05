@@ -35,7 +35,7 @@
 
 <div class="col-sm-12 col-xs-12 col-md-6 col-md-offset-3">
 
-    <form class="form-signin"  method="post" action="/event/inscribirse/${event.eventId!}">
+    <form class="form-signin" method="post" action="/event/inscribirse/${event.eventId!}">
         <div class="panel panel-default">
             <div class="panel-heading"><h4>${event.name!}</h4></div>
             <div class="panel-body">
@@ -55,6 +55,11 @@
                 <p>${event.heureRDV!}</p>
 
                 <p>${event.description!}</p>
+
+                <p><strong>Usarios inscritos : </strong></p>
+            <#list event.listUserEnroll as user>
+                <a href="/member/display/${user.login!}">${user.login!} </a>
+            </#list>
 
             </div>
         </div>

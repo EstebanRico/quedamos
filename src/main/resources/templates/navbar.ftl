@@ -21,7 +21,7 @@
                     <li><a href="/dashboard">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Les membres<span class="caret"></span></a>
+                           aria-expanded="false">Les membres <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/member/search">Chercher</a></li>
                         </ul>
@@ -33,6 +33,10 @@
                             <li><a href="/event/create">Créer</a></li>
                             <li><a href="/event/search">Chercher</a></li>
                         </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/mail/mailbox" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Ma messagerie <span class="caret"></span></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
