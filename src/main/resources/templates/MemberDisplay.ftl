@@ -83,6 +83,7 @@
 
         <span id="msg" style="display:none"><p>
             <form method="post" action="/mail/send">
+                <input type="text" class="form-control" name="userId2" style="display:none" value="${user.userId!}"/>
                 <input type="text" class="form-control" name="sujet" placeholder="Enter subject"/>
                 <textarea rows="4" class="form-control" name="msg" placeholder="Enter message"></textarea>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Send message</button>

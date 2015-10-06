@@ -1,6 +1,7 @@
 package com.sngt.taxis.stargui.web.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Discussion {
     @ManyToMany(mappedBy = "listeDiscussion")
     public List<User> listeUser;
 
-    public Discussion(String sujetDisc, String msgMail, User user) {
+    public Discussion(String sujetDisc, Mail mail, User user1, User user2) {
 
         Calendar curr = Calendar.getInstance();
         dateCreation = "" + curr.get(Calendar.YEAR) + "-" + curr.get(Calendar.MONTH) + "-" + curr.get(Calendar.DAY_OF_MONTH);
@@ -31,11 +32,13 @@ public class Discussion {
 
         sujet = sujetDisc;
 
-/*
-        Mail mail = new Mail(msgMail,user,dateCreation,heureCreation);
-
+        listeMail = new ArrayList<Mail>();
         listeMail.add(mail);
-*/
+
+        listeUser = new ArrayList<User>();
+        listeUser.add(user1);
+        listeUser.add(user2);
+
     }
 
     public List<User> getListeUser() {

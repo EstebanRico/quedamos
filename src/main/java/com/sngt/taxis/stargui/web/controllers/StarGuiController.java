@@ -336,6 +336,8 @@ public class StarGuiController {
 
         List<Discussion> listDiscussion = user.getListeDiscussion();
 
+        LOGGER.info("userId:"+userId+" Taille liste Discussion:"+listDiscussion.size());
+
         ModelAndView modelView = new ModelAndView("MailBox");
         modelView.addObject("listDiscussion", listDiscussion);
 
@@ -343,24 +345,26 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/mail/send")
-    public String eventMailSendPOST(String sujet, String msg, HttpServletRequest request) {
+    public String eventMailSendPOST(Integer userId2, String sujet, String msg, HttpServletRequest request) {
 
         LOGGER.info("Send a mail:" + msg);
 
         //Récupération de l'utilisateur
         Integer userId = (Integer) request.getSession().getAttribute("userId");
-        User user = userRepository.findByUserId(userId);
+        User user1 = userRepository.findByUserId(userId);
+        User user2 = userRepository.findByUserId(userId2);
 
-        Discussion discussion = new Discussion(sujet, msg, user);
-        disccussionRepository.save(discussion);
-        Discussion discSaved = disccussionRepository.findByDiscId(discussion.getDiscId());
-
-        Mail mail = new Mail(msg,user);
+        Mail mail = new Mail(msg,user1);
         mailRepository.save(mail);
-        discSaved.addMail(mail);
-        disccussionRepository.save(discSaved);
 
-        LOGGER.info("Discussion savedID:" + discSaved.getDiscId());
+        Discussion discussion = new Discussion(sujet, mail, user1,user2);
+        disccussionRepository.save(discussion);
+        user1.addDiscussion(discussion);
+        userRepository.save(user1);
+        user2.addDiscussion(discussion);
+        userRepository.save(user2);
+
+        LOGGER.info("Discussion savedID:" + discussion.getDiscId());
 
         /*ModelAndView modelView = new ModelAndView("MailBox");
         modelView.addObject("listDiscussion", listDiscussion);

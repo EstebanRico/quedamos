@@ -1,6 +1,7 @@
 package com.sngt.taxis.stargui.web.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -252,5 +253,11 @@ public class User {
         setLocation(userJSON.getLocation());
         setBirthDate(userJSON.getBirthDate());
         setDescription(userJSON.getDescription());
+    }
+
+    public void addDiscussion(Discussion discussion) {
+        if (listeDiscussion == null)
+            listeDiscussion = new ArrayList<Discussion>();
+        listeDiscussion.add(discussion);
     }
 }
