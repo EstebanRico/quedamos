@@ -36,7 +36,7 @@ public class User {
     public String pass;
     public String gender;
 
-    @OneToMany
+    @ManyToMany
     public List<Discussion> listeDiscussion;
 
     public List<Discussion> getListeDiscussion() {

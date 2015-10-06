@@ -1,9 +1,12 @@
 package com.sngt.taxis.stargui.web.controllers;
 
+import com.sngt.taxis.stargui.web.dao.DiscussionDAOInterface;
 import com.sngt.taxis.stargui.web.dao.EventDAOInterface;
+import com.sngt.taxis.stargui.web.dao.MailDAOInterface;
 import com.sngt.taxis.stargui.web.dao.UserDAOInterface;
 import com.sngt.taxis.stargui.web.model.Discussion;
 import com.sngt.taxis.stargui.web.model.Event;
+import com.sngt.taxis.stargui.web.model.Mail;
 import com.sngt.taxis.stargui.web.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +36,10 @@ public class StarGuiController {
     UserDAOInterface userRepository;
     @Autowired
     EventDAOInterface eventRepository;
+    @Autowired
+    DiscussionDAOInterface disccussionRepository;
+    @Autowired
+    MailDAOInterface mailRepository;
 
     /*****************
      * DASHBOARD
@@ -94,13 +101,14 @@ public class StarGuiController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        LOGGER.info("Current Year:" + curr.get(Calendar.YEAR) + " Birth Year:" + birth.get(Calendar.YEAR));
         int yeardiff = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
         curr.add(Calendar.YEAR, -yeardiff);
         if (birth.after(curr)) {
             yeardiff = yeardiff - 1;
         }
 
-        LOGGER.info("Entré:" + birthDate + " Sortie:" + yeardiff);
+        LOGGER.info("Entree:" + birthDate + " Sortie:" + yeardiff);
 
         return yeardiff;
     }
@@ -334,5 +342,30 @@ public class StarGuiController {
         return modelView;
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/mail/send")
+    public String eventMailSendPOST(String sujet, String msg, HttpServletRequest request) {
+
+        LOGGER.info("Send a mail:" + msg);
+
+        //Récupération de l'utilisateur
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        User user = userRepository.findByUserId(userId);
+
+        Discussion discussion = new Discussion(sujet, msg, user);
+        disccussionRepository.save(discussion);
+        Discussion discSaved = disccussionRepository.findByDiscId(discussion.getDiscId());
+
+        Mail mail = new Mail(msg,user);
+        mailRepository.save(mail);
+        discSaved.addMail(mail);
+        disccussionRepository.save(discSaved);
+
+        LOGGER.info("Discussion savedID:" + discSaved.getDiscId());
+
+        /*ModelAndView modelView = new ModelAndView("MailBox");
+        modelView.addObject("listDiscussion", listDiscussion);
+*/
+        return "index";
+    }
 
 }

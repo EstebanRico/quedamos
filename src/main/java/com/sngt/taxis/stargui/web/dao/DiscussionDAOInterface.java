@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface DiscussionDAOInterface extends CrudRepository<Discussion, Integer> {
 
-
+    Discussion findByDiscId(Integer discId);
 }
 

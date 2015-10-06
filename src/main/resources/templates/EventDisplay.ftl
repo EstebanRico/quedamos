@@ -57,9 +57,11 @@
                 <p>${event.description!}</p>
 
                 <p><strong>Usarios inscritos : </strong></p>
-            <#list event.listUserEnroll as user>
-                <a href="/member/display/${user.login!}">${user.login!} </a>
-            </#list>
+            <#if event.listUserEnroll??>
+                <#list event.listUserEnroll as user>
+                    <a href="/member/display/${user.login!}">${user.login!} </a>
+                </#list>
+            </#if>
 
             </div>
         </div>

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.util.Calendar;
 
 /**
  * Created by skiss on 05/10/2015.
@@ -16,6 +17,29 @@ public class Mail {
     public Integer mailId;
 
     public String dateCreation;
+    public String heureCreation;
+
+    public String msg;
+    public Boolean lu;
+
+    @OneToOne
+    public User user; //Un mail est écrit que par un seul utilisateur.
+
+    public Mail(String msg, User user){
+        this.msg=msg;
+        this.user=user;
+        lu=false;
+        Calendar curr = Calendar.getInstance();
+        dateCreation =""+curr.get(Calendar.YEAR)+"-"+curr.get(Calendar.MONTH)+"-"+curr.get(Calendar.DAY_OF_MONTH);
+        heureCreation = ""+curr.get(Calendar.HOUR)+":"+curr.get(Calendar.MINUTE);
+    }
+
+    public Mail(String msg, User user, String dateCreation,String heureCreation){
+        this(msg, user);
+        this.dateCreation=dateCreation;
+        this.heureCreation=heureCreation;
+    }
+
 
     public Integer getMailId() {
         return mailId;
@@ -65,12 +89,5 @@ public class Mail {
         this.user = user;
     }
 
-    public String heureCreation;
-
-    public String msg;
-    public Boolean lu;
-
-    @OneToOne
-    public User user; //Un mail est écrit que par un seul utilisateur.
 
 }

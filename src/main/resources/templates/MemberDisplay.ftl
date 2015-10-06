@@ -72,22 +72,25 @@
                 <p>Member since 2013</p>
             </div>
         </div>
+
         <#if !edit??>
             <p> <span onclick="alert('Hello !');">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Add to friend list</button>
         </span></p>
-            <p><span onclick="toto()">
+            <p><span onclick="clickSendMessage()">
             <button id="buttonSend" class="btn btn-lg btn-primary btn-block" type="submit">Send a message</button>
         </span></p>
 
         <span id="msg" style="display:none"><p>
-            <form method="post" action="mail/send">
+            <form method="post" action="/mail/send">
+                <input type="text" class="form-control" name="sujet" placeholder="Enter subject"/>
                 <textarea rows="4" class="form-control" name="msg" placeholder="Enter message"></textarea>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Send message</button>
             </form>
             </p>
         </span>
         </#if>
+
     </div>
 </div>
 
@@ -96,7 +99,7 @@ PAS DUTILISATEUR TROUVE
 </#if>
 
 <script>
-    function toto() {
+    function clickSendMessage() {
         var buttonSend = document.getElementById('buttonSend');
         buttonSend.style.display = 'none';
 
