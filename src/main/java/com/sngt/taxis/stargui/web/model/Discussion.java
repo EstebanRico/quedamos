@@ -34,22 +34,24 @@ public class Discussion {
     public Discussion(Mail mail, User user) {
         this();
 
-        listeMail = new ArrayList<Mail>();
+        if (listeMail == null) {
+            listeMail = new ArrayList<Mail>();
+        }
         listeMail.add(mail);
+
+        if (null == listeUser) {
+            listeUser = new ArrayList<User>();
+        }
+        listeUser.add(user);
 
     }
 
     public Discussion(String sujetDisc, Mail mail, User user1, User user2) {
 
-        this(mail,user1);
+        this(mail, user1);
 
         sujet = sujetDisc;
 
-        listeMail = new ArrayList<Mail>();
-        listeMail.add(mail);
-
-        listeUser = new ArrayList<User>();
-        listeUser.add(user1);
         listeUser.add(user2);
 
     }

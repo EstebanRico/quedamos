@@ -393,10 +393,13 @@ public class StarGuiController {
         mailRepository.save(mail);
 
         //Création d'une nouvelle discussion obligatoirement
-        Discussion discussion = new Discussion(mail, user1);
+        Discussion discussion = new Discussion("sujet",mail, user1, user2);
         disccussionRepository.save(discussion);
         user1.addDiscussion(discussion);
         userRepository.save(user1);
+        user2.addDiscussion(discussion);
+        userRepository.save(user2);
+
 
         return memberProfileDisplay(user1.getLogin());
     }
