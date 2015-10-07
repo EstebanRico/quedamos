@@ -25,6 +25,10 @@ public class Mail {
     @OneToOne
     public User user; //Un mail est écrit que par un seul utilisateur.
 
+    public Mail(){
+        super();
+    }
+
     public Mail(String msg, User user){
         this.msg=msg;
         this.user=user;

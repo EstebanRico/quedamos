@@ -155,4 +155,6 @@ public class Event {
     public void setParticipant(User userIdView) {
         listUserEnroll.add(userIdView);
     }
+
+
 }

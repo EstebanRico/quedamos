@@ -41,6 +41,40 @@ public class StarGuiController {
     @Autowired
     MailDAOInterface mailRepository;
 
+    /****************
+     * TEST
+     */
+
+    @RequestMapping(method = RequestMethod.GET, value = "/test")
+    public String test() {
+
+        String msg = "MAIL 1";
+        Integer user = 3;
+        Integer eventId = 1;
+        LOGGER.info("Send a mail:" + msg);
+
+        //Récupération de l'utilisateur
+        User user1 = userRepository.findByUserId(user);
+
+        //Sauvegarde du mail
+        Mail mail = new Mail(msg, user1);
+        mailRepository.save(mail);
+
+        //Sauvegarde de la discussion
+        Discussion discussion = new Discussion(mail, user1);
+        disccussionRepository.save(discussion);
+
+        //Sauvegarde de l'event
+        Event eventById = eventRepository.findByEventId(1);
+        eventById.setDiscussion(discussion);
+        eventRepository.save(eventById);
+
+        LOGGER.info("Discussion savedID:" + discussion.getDiscId());
+        LOGGER.info("Discussion savedID:" + eventById.getEventId() + " discussion:" + eventById.getDiscussion().getDiscId() + " Discussion:" + eventById.getDiscussion().toString());
+
+        return "index";
+    }
+
     /*****************
      * DASHBOARD
      **************************/
@@ -151,7 +185,7 @@ public class StarGuiController {
 
         ModelAndView modelView = new ModelAndView("MemberDisplay");
         //Vérification de non hack
-        if (userId == userJSON.getUserId()) {
+        //if (userId == userJSON.getUserId()) {
 
             LOGGER.info("Meme user");
             User userDB = userRepository.findByUserId(userId);
@@ -170,11 +204,11 @@ public class StarGuiController {
             }
             modelView.addObject("edit", "yes");
 
-        } else {
+       /* } else {
             //TODO Gérer le hack
             LOGGER.error("Member modify retourne null");
             return null;
-        }
+        }*/
 
         //SI save a fonctionné alors on retourne à l'index en disant OK
         //SINON on retourne à la meme pas en disant non OK et les champs qui posent problèmes.
@@ -238,8 +272,6 @@ public class StarGuiController {
     /*********************
      * EVENT
      ****************/
-
-
     @RequestMapping(method = RequestMethod.GET, value = "/event/create")
     public String EventCreateGET() {
         LOGGER.info("Click Event Create : GET");
@@ -325,6 +357,8 @@ public class StarGuiController {
     /************************
      * MailBox
      */
+
+
     @RequestMapping(method = RequestMethod.GET, value = "/mail/mailbox")
     public ModelAndView eventMailBoxGET(HttpServletRequest request) {
 
@@ -336,6 +370,8 @@ public class StarGuiController {
 
         List<Discussion> listDiscussion = user.getListeDiscussion();
 
+        LOGGER.info("userId:" + userId + " Taille liste Discussion:" + listDiscussion.size());
+
         ModelAndView modelView = new ModelAndView("MailBox");
         modelView.addObject("listDiscussion", listDiscussion);
 
@@ -343,29 +379,57 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/mail/send")
-    public String eventMailSendPOST(String sujet, String msg, HttpServletRequest request) {
+    public ModelAndView eventMailUserSendPOST(Integer userId2, String sujet, String msg, HttpServletRequest request) {
 
         LOGGER.info("Send a mail:" + msg);
 
         //Récupération de l'utilisateur
         Integer userId = (Integer) request.getSession().getAttribute("userId");
-        User user = userRepository.findByUserId(userId);
+        User user1 = userRepository.findByUserId(userId);
+        User user2 = userRepository.findByUserId(userId2);
 
-        Discussion discussion = new Discussion(sujet, msg, user);
-        disccussionRepository.save(discussion);
-        Discussion discSaved = disccussionRepository.findByDiscId(discussion.getDiscId());
-
-        Mail mail = new Mail(msg,user);
+        //Création d'un message
+        Mail mail = new Mail(msg, user1);
         mailRepository.save(mail);
-        discSaved.addMail(mail);
-        disccussionRepository.save(discSaved);
 
-        LOGGER.info("Discussion savedID:" + discSaved.getDiscId());
+        //Création d'une nouvelle discussion obligatoirement
+        Discussion discussion = new Discussion(mail, user1);
+        disccussionRepository.save(discussion);
+        user1.addDiscussion(discussion);
+        userRepository.save(user1);
 
-        /*ModelAndView modelView = new ModelAndView("MailBox");
-        modelView.addObject("listDiscussion", listDiscussion);
-*/
-        return "index";
+        return memberProfileDisplay(user1.getLogin());
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/mail/event" + "/{eventId}")
+    public ModelAndView eventMailEventSendPOST(@PathVariable Integer eventId, String msg, HttpServletRequest request) {
+
+        LOGGER.info("Send a mail:" + msg);
+
+        //Récupération de l'utilisateur
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        User user1 = userRepository.findByUserId(userId);
+
+        //Création d'un message
+        Mail mail = new Mail(msg, user1);
+        mailRepository.save(mail);
+
+        //récupération de l'évenement, pour ajouter mail à la discussion
+        Event eventById = eventRepository.findByEventId(eventId);
+        Discussion discussion = eventById.getDiscussion();
+        if (discussion == null) {
+            discussion = new Discussion(mail, user1);
+        } else {
+            discussion.addMail(mail);
+        }
+        disccussionRepository.save(discussion);
+        eventById.setDiscussion(discussion);
+        eventRepository.save(eventById);
+
+        LOGGER.info("Discussion savedID:" + discussion.getDiscId());
+        LOGGER.info("Discussion savedID:" + eventById.getEventId() + " discussion:" + eventById.getDiscussion().getDiscId() + " Discussion:" + eventById.getDiscussion().toString());
+
+        return eventDisplayGet(eventById.getEventId(), request);
     }
 
 }

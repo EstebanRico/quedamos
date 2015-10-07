@@ -57,6 +57,7 @@
                 <p>${event.description!}</p>
 
                 <p><strong>Usarios inscritos : </strong></p>
+
             <#if event.listUserEnroll??>
                 <#list event.listUserEnroll as user>
                     <a href="/member/display/${user.login!}">${user.login!} </a>
@@ -65,10 +66,34 @@
 
             </div>
         </div>
+
     <#if inscribirse??>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Inscribirse</button>
     </#if>
+
     </form>
+
+    <!--Affichage du fil de discussion-->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Discussion</h4></div>
+        <div class="panel-body">
+        <#if event.discussion??>
+            <#assign discussion = event.discussion>
+                <#if (discussion.listeMail)??>
+                    <#list event.discussion.listeMail as mail>
+                        <p>${mail.msg!}</p>
+                    </#list>
+                </#if>
+        </#if>
+        </div>
+    </div>
+
+    <!--Affichage de la réponse au fil discussion-->
+    <form method="post" action="/mail/event/${event.eventId!}">
+        <textarea rows="4" class="form-control" name="msg" placeholder="Enter message"></textarea>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Send message</button>
+    </form>
+
 </div>
 
 

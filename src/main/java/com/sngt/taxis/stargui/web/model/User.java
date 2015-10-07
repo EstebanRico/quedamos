@@ -1,6 +1,10 @@
 package com.sngt.taxis.stargui.web.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,6 +12,8 @@ import java.util.List;
  */
 @Entity
 public class User {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(User.class);
 
     @Id
     @GeneratedValue
@@ -36,6 +42,9 @@ public class User {
     public String pass;
     public String gender;
 
+    //@JoinTable(name="user_liste_discussion",
+    //joinColumns=@JoinColumn(name="user_userid"),
+    //inverseJoinColumns=@JoinColumn(name="liste_discussion_discid"))
     @ManyToMany
     public List<Discussion> listeDiscussion;
 
@@ -252,5 +261,13 @@ public class User {
         setLocation(userJSON.getLocation());
         setBirthDate(userJSON.getBirthDate());
         setDescription(userJSON.getDescription());
+    }
+
+    public void addDiscussion(Discussion discussion) {
+        if (listeDiscussion == null) {
+            listeDiscussion = new ArrayList<Discussion>();
+            LOGGER.info("!!!!!! CREATION D4UNE NOUVELLE DISCUSSION");
+        }
+        listeDiscussion.add(discussion);
     }
 }

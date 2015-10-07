@@ -46,6 +46,7 @@
     <form class="form-signin" action="member/register">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
+    <a href="/test">TEST</a>
 
 </div>
 <!-- /container -->
