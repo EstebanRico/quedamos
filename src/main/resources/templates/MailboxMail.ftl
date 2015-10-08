@@ -32,36 +32,33 @@
 
 <#include "navbar.ftl" />
 
-<#if listDiscussion??>
+<#if discussion??>
 
 <div class="row">
     <div class="col-xs-12 col-sm-offset-3 col-sm-6">
         <div class="panel panel-default">
             <ul class="list-group" id="contact-list">
             <#--//TODO faille de sécurité attention, car il ne faut pas renvoyer toutes les informations des utilisateurs au client-->
-                <#list listDiscussion as discussion>
-                    <#if (discussion.discId)??>
+                <#list discussion.listeMail as mail>
                         <li class="list-group-item">
-                            <a href="/mailbox/mail/${discussion.discId!}">
                                 <div class="col-xs-4 col-sm-2">
                                     <img src="http://www.sen-soyle.com/g/1guzel_fotograflar_profil_2.jpg"
                                          class="img-responsive img-circle"/>
                                 </div>
                                 <div class="col-xs-8 col-sm-3">
-                                    <span class="name">${discussion.sujet!}</span><br/>
-                                    <#list discussion.listeMail as mail>
-                                        <span class="name">${mail.msg!}</span><br/>
-                                    </#list>
+                                    <span class="name">${mail.msg!}</span><br/>
                                 </div>
                                 <div class="clearfix"></div>
-                            </a>
                         </li>
-                    <#else>
-                        PAS DE DISCUSSION RECUPEREE
-                    </#if>
                 </#list>
             </ul>
+
         </div>
+        <form method="post" action="/mail/send">
+            <input type="text" class="form-control" name="userId2" style="display:none" value="${user.userId!}"/>
+            <textarea rows="4" class="form-control" name="msg" placeholder="Enter reply"></textarea><p></p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Send reply</button>
+        </form>
     </div>
 </div>
 </#if>

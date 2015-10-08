@@ -393,7 +393,7 @@ public class StarGuiController {
         mailRepository.save(mail);
 
         //Création d'une nouvelle discussion obligatoirement
-        Discussion discussion = new Discussion("sujet",mail, user1, user2);
+        Discussion discussion = new Discussion(sujet,mail, user1, user2);
         disccussionRepository.save(discussion);
         user1.addDiscussion(discussion);
         userRepository.save(user1);
@@ -433,6 +433,28 @@ public class StarGuiController {
         LOGGER.info("Discussion savedID:" + eventById.getEventId() + " discussion:" + eventById.getDiscussion().getDiscId() + " Discussion:" + eventById.getDiscussion().toString());
 
         return eventDisplayGet(eventById.getEventId(), request);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/mailbox/mail" + "/{discId}")
+    public ModelAndView eventMailboxMailGET(@PathVariable Integer discId, HttpServletRequest request) {
+
+        LOGGER.info("Display a discussion:" + discId);
+
+        //Get discussion
+        Discussion discussion = disccussionRepository.findByDiscId(discId);
+
+        //Verification that the user can access to the discussion
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        User user = userRepository.findByUserId(userId);
+        if (discussion.getListeUser().contains(user))
+            LOGGER.info("L'user est bien dans la liste de discussion.");
+        else
+            LOGGER.info("L'user n'est pas dans la liste et ne peut pas accéder à la discussion");
+
+        ModelAndView modelView = new ModelAndView("MailboxMail");
+        modelView.addObject("discussion", discussion);
+
+        return modelView;
     }
 
 }

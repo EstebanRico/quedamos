@@ -85,7 +85,7 @@
             <form method="post" action="/mail/send">
                 <input type="text" class="form-control" name="userId2" style="display:none" value="${user.userId!}"/>
                 <input type="text" class="form-control" name="sujet" placeholder="Enter subject"/>
-                <textarea rows="4" class="form-control" name="msg" placeholder="Enter message"></textarea>
+                <textarea rows="4" class="form-control" name="msg" placeholder="Enter message"></textarea><p></p>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Send message</button>
             </form>
             </p>
