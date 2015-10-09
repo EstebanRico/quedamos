@@ -38,7 +38,7 @@
     <div class="col-sm-12 col-xs-12 col-md-4 col-md-offset-2">
         <div class="panel panel-default">
             <div class="panel-thumbnail">
-                <img src="http://www.sen-soyle.com/g/1guzel_fotograflar_profil_2.jpg"
+                <img src="${user.userId!}.jpg"
                      class="img-responsive">
             </div>
             <div class="panel-body">

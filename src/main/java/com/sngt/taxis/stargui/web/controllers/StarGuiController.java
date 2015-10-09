@@ -15,11 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -177,7 +182,7 @@ public class StarGuiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/member/modify")
-    public ModelAndView memberModifyPost(User userJSON, HttpServletRequest request) {
+    public ModelAndView memberModifyPost(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, User userJSON, HttpServletRequest request) {
 
         LOGGER.info("Click save member modification userId:" + userJSON.getUserId() + "  Location:" + userJSON.getLocation());
         Integer userId = (Integer) request.getSession().getAttribute("userId");
@@ -187,22 +192,38 @@ public class StarGuiController {
         //Vérification de non hack
         //if (userId == userJSON.getUserId()) {
 
-            LOGGER.info("Meme user");
-            User userDB = userRepository.findByUserId(userId);
+        LOGGER.info("Meme user");
+        User userDB = userRepository.findByUserId(userId);
 
-            if (null != userDB) {
-                //Si l'utilisateur existe déjà alors on merge avant de sauvagarder
-                userDB.mergeModify(userJSON);
-                userRepository.save(userDB);
-                modelView.addObject("user", userDB);
-                LOGGER.info("User updated " + userDB.getUserId());
-            } else {
-                //Sinon on save l'utilisateur récupéré
-                userRepository.save(userJSON);
-                modelView.addObject("user", userJSON);
-                LOGGER.info("User created " + userJSON.getUserId());
+        if (null != userDB) {
+            //Si l'utilisateur existe déjà alors on merge avant de sauvagarder
+            userDB.mergeModify(userJSON);
+            userDB = userRepository.save(userDB);
+            modelView.addObject("user", userDB);
+            LOGGER.info("User updated " + userDB.getUserId());
+        } else {
+            //Sinon on save l'utilisateur récupéré
+            userDB = userRepository.save(userJSON);
+            modelView.addObject("user", userJSON);
+            LOGGER.info("User created " + userJSON.getUserId());
+        }
+
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                BufferedOutputStream stream =
+                        new BufferedOutputStream(new FileOutputStream(new File(""+userDB.getUserId()+".jpg")));
+                stream.write(bytes);
+                stream.close();
+                LOGGER.info("You successfully uploaded " + name + "!");
+            } catch (Exception e) {
+                LOGGER.info("You failed to upload " + name + " => " + e.getMessage());
             }
-            modelView.addObject("edit", "yes");
+        } else {
+            LOGGER.info("You failed to upload " + name + " because the file was empty.");
+        }
+
+        modelView.addObject("edit", "yes");
 
        /* } else {
             //TODO Gérer le hack
@@ -219,6 +240,7 @@ public class StarGuiController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/member/register")
     public ModelAndView registerPost(User u) {
+
         LOGGER.info("Click Register.");
 
         User userSaved = userRepository.save(u);
@@ -234,6 +256,7 @@ public class StarGuiController {
         modelView.addObject("response", "yes");
 
         return modelView;
+
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/member/display" + "/{login}")
@@ -393,7 +416,7 @@ public class StarGuiController {
         mailRepository.save(mail);
 
         //Création d'une nouvelle discussion obligatoirement
-        Discussion discussion = new Discussion(sujet,mail, user1, user2);
+        Discussion discussion = new Discussion(sujet, mail, user1, user2);
         disccussionRepository.save(discussion);
         user1.addDiscussion(discussion);
         userRepository.save(user1);
@@ -404,7 +427,7 @@ public class StarGuiController {
         return memberProfileDisplay(user1.getLogin());
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/mail/send"+ "/{discId}")
+    @RequestMapping(method = RequestMethod.POST, value = "/mail/send" + "/{discId}")
     public ModelAndView eventMailUserSendPOST(@PathVariable Integer discId, String msg, HttpServletRequest request) {
 
         LOGGER.info("Send a mail:" + msg);
@@ -417,9 +440,9 @@ public class StarGuiController {
         User userSession = userRepository.findByUserId(userId);
 
         //Verify if the user is in the discussion
-        if (discussion.getListeUser().contains(userSession)){
+        if (discussion.getListeUser().contains(userSession)) {
             LOGGER.info("L'user qui répond est bien déjà dans la discussion");
-        }else{
+        } else {
             LOGGER.info("L'user qui répond n'est pas dans la discussion");
         }
 
@@ -435,7 +458,7 @@ public class StarGuiController {
         discussion.addMail(mail);
         disccussionRepository.save(discussion);
 
-        return eventMailboxMailGET(discId,request);
+        return eventMailboxMailGET(discId, request);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/mail/event" + "/{eventId}")

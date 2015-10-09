@@ -1,2 +1,3 @@
 Comment envoyer un fichier?
 
+Afficher l'image en base 64. Comment la stocker en BDD? Comment la convertir?
