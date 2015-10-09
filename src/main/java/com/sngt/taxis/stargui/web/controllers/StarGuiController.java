@@ -404,6 +404,40 @@ public class StarGuiController {
         return memberProfileDisplay(user1.getLogin());
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/mail/send"+ "/{discId}")
+    public ModelAndView eventMailUserSendPOST(@PathVariable Integer discId, String msg, HttpServletRequest request) {
+
+        LOGGER.info("Send a mail:" + msg);
+
+        //Get discussion
+        Discussion discussion = disccussionRepository.findByDiscId(discId);
+
+        //Récupération de l'utilisateur de la session
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        User userSession = userRepository.findByUserId(userId);
+
+        //Verify if the user is in the discussion
+        if (discussion.getListeUser().contains(userSession)){
+            LOGGER.info("L'user qui répond est bien déjà dans la discussion");
+        }else{
+            LOGGER.info("L'user qui répond n'est pas dans la discussion");
+        }
+
+        //Get users of discussion
+        User user1 = discussion.getListeUser().get(0);
+        User user2 = discussion.getListeUser().get(1);
+
+        //Création d'un message
+        Mail mail = new Mail(msg, userSession);
+        mailRepository.save(mail);
+
+        //Add the mail to the discussion
+        discussion.addMail(mail);
+        disccussionRepository.save(discussion);
+
+        return eventMailboxMailGET(discId,request);
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/mail/event" + "/{eventId}")
     public ModelAndView eventMailEventSendPOST(@PathVariable Integer eventId, String msg, HttpServletRequest request) {
 

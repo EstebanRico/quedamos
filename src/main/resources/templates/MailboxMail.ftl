@@ -54,11 +54,13 @@
             </ul>
 
         </div>
-        <form method="post" action="/mail/send">
+
+        <form method="post" action="/mail/send/${discussion.discId!}">
             <input type="text" class="form-control" name="userId2" style="display:none" value="${user.userId!}"/>
             <textarea rows="4" class="form-control" name="msg" placeholder="Enter reply"></textarea><p></p>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Send reply</button>
         </form>
+
     </div>
 </div>
 </#if>
